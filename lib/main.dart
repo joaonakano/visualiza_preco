@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'ESFHERA Login',
+      title: 'Consulta Preço Login',
       theme: ThemeData(
         primarySwatch: Colors.deepPurple,
         scaffoldBackgroundColor: const Color(0xFFF1F4F8),
@@ -21,4 +21,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
