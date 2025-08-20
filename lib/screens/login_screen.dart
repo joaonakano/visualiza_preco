@@ -211,7 +211,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             elevation: 3,
                           ),
                           child: Text(
-                            "Cadastrar",
+                            "Login",
                             style: GoogleFonts.outfit(
                               color: const Color(0xFF4B986C),
                               fontSize: 18,
