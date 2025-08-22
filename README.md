@@ -14,17 +14,23 @@ Para executar, basta utilizar o comando ``flutter run -d windows``, ou somente `
 
 É neste momento que o usuário poderá fazer login ou registro dentro do aplicativo. Abaixo, uma demonstração inicial da tela de login, conta também com validação básica de e-mail e senha.
 
-![TelaLogin](image.png)
+<p align="center">
+  <img src="image.png">
+</p>
 
 ### Tela de Dashboard
 
 É na tela de dashboard que usuário terá controle do aplicativo, podendo alternar entre produtos ou funcionalidades. Abaixo, uma imagem que demonstra inicialmente a estrutura básica sem menus dos produtos.
 
-![TelaDashboard](image-1.png)
+<p align="center">
+  <img src="image-1.png">
+</p>
 
 ### Tela de Produto
 
 Na tela de produto, contaremos com as informações completas de um determinado item no estoque, contando com preços atuais, estoque disponível, descrições e gráficos de histórico. Abaixo, uma imagem que demonstra inicialmente essa funcionalidade.
 
-![TelaProduto](image-2.png)
-![TelaProdutoGrafico](image-3.png)
+<p align="center">
+  <img src="image-2.png">
+  <img src="image-3.png">
+</p>
