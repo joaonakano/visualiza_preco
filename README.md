@@ -1,16 +1,29 @@
-# flutter_visualizador_de_precos
+# Visualiza Preço - Flutter
 
-A new Flutter project.
+Um projeto em Flutter de consulta de preços de produtos em uma determinada loja. Aplicativo foi feito como entrega semestral da disciplina de Desenvolvimento de Sistemas Web Mobile IV.
 
-## Getting Started
+## Como Rodar o Código?
 
-This project is a starting point for a Flutter application.
+Como esse é o código-fonte, é necessário haver as extensões de Flutter do VSCode ou o Android Studio configurado. Feito isso, deve-se executar o comando ``flutter pub get`` no terminal e aguardar a instalação das dependências.
 
-A few resources to get you started if this is your first Flutter project:
+Para executar, basta utilizar o comando ``flutter run -d windows``, ou somente ``flutter run``, se deseja escolher o ambiente de emulação.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## Entregas
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### Tela de Login
+
+É neste momento que o usuário poderá fazer login ou registro dentro do aplicativo. Abaixo, uma demonstração inicial da tela de login, conta também com validação básica de e-mail e senha.
+
+[URL IMAGEM]
+
+### Tela de Dashboard
+
+É na tela de dashboard que usuário terá controle do aplicativo, podendo alternar entre produtos ou funcionalidades. Abaixo, uma imagem que demonstra inicialmente a estrutura básica sem menus dos produtos.
+
+[URL IMAGEM2]
+
+### Tela de Produto
+
+Na tela de produto, contaremos com as informações completas de um determinado item no estoque, contando com preços atuais, estoque disponível, descrições e gráficos de histórico. Abaixo, uma imagem que demonstra inicialmente essa funcionalidade.
+
+[URL IMAGEM3]
