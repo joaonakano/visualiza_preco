@@ -21,7 +21,7 @@ class ImageCard extends StatelessWidget {
     return Card(
       color: Colors.white10,
       shadowColor: Colors.black,
-      elevation: 30,
+      elevation: 10,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20),
         side: BorderSide(
