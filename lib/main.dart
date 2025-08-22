@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_visualizador_de_precos/screens/home_screen.dart';
 import 'package:flutter_visualizador_de_precos/screens/login_screen.dart';
 import 'package:flutter_visualizador_de_precos/screens/product_screen.dart';
 
@@ -16,7 +17,6 @@ class MyApp extends StatelessWidget {
       title: 'Consulta Preço Login',
       theme: ThemeData(
         primarySwatch: Colors.deepPurple,
-        scaffoldBackgroundColor: const Color(0xFFF1F4F8),
       ),
       home: LoginScreen(),
     );

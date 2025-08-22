@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_visualizador_de_precos/screens/home_screen.dart';
 import 'package:flutter_visualizador_de_precos/screens/product_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -37,7 +38,7 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       );
       Navigator.push(context, MaterialPageRoute(
-        builder: (context) => const ProductScreen(),
+        builder: (context) => const DashboardScreen(),
       ));
     } else {
       ScaffoldMessenger.of(context).showSnackBar(

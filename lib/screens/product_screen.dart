@@ -17,6 +17,7 @@ class ProductScreen extends StatelessWidget {
           children: [
             IconButton(
               onPressed: () {
+                Navigator.pop(context);
                 print("Return button pressed!");
               },
               icon: Icon(
