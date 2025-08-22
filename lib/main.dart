@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-// import 'package:flutter_visualizador_de_precos/screens/login_screen.dart';
+import 'package:flutter_visualizador_de_precos/screens/login_screen.dart';
 import 'package:flutter_visualizador_de_precos/screens/product_screen.dart';
 
 void main() {
@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.deepPurple,
         scaffoldBackgroundColor: const Color(0xFFF1F4F8),
       ),
-      home: ProductScreen(),
+      home: LoginScreen(),
     );
   }
 }

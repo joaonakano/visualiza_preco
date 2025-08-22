@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_visualizador_de_precos/screens/product_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -35,6 +36,9 @@ class _LoginScreenState extends State<LoginScreen> {
           backgroundColor: Colors.green,
         ),
       );
+      Navigator.push(context, MaterialPageRoute(
+        builder: (context) => const ProductScreen(),
+      ));
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Inválido!'), backgroundColor: Colors.red),
@@ -106,7 +110,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(60),
                     child: Image.asset(
-                      'assets/images/consulta.jpg',
+                      'assets/images/product_1_lemon.png',
                       fit: BoxFit.fill,
                     ),
                   ),
