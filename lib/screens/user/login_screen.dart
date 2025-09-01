@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_visualizador_de_precos/screens/home_screen.dart';
-import 'package:flutter_visualizador_de_precos/screens/product_screen.dart';
+import 'package:flutter_visualizador_de_precos/screens/product/product_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class LoginScreen extends StatefulWidget {
