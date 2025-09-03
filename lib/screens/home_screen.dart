@@ -3,11 +3,8 @@ import 'package:flutter_visualizador_de_precos/models/keanu_quotes_model.dart';
 import 'package:flutter_visualizador_de_precos/screens/product/product_screen.dart';
 import 'package:flutter_visualizador_de_precos/services/keanu_service.dart';
 import 'package:flutter_visualizador_de_precos/shared/constants/app_colors.dart';
+import 'package:flutter_visualizador_de_precos/shared/constants/app_text_styles.dart';
 import 'package:flutter_visualizador_de_precos/shared/widgets/molecules/app_bar_widget.dart';
-//barra superior
-//3 barras na esquerda
-//meio recarregar
-//direita pesquisar
 
 class NewDashBoard extends StatefulWidget {
   const NewDashBoard({super.key});
@@ -17,96 +14,151 @@ class NewDashBoard extends StatefulWidget {
 }
 
 class _NewDashBoardState extends State<NewDashBoard> {
-  void fetchData() async {
+  List<Quote> _quotes = [];
+  bool _loading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadQuotes();
+  }
+
+  Future<void> _loadQuotes() async { //adaptada do fetchData para que possa utilizar a animação de Load dos Quotes.
+    setState(() => _loading = true);
     try {
-      List<Quote> quotes = await KeanuService().fetchQuotes(); 
-      print(quotes);
+      _quotes = await KeanuService().fetchQuotes();
     } catch (e) {
-      print("Error: $e");
+      debugPrint("Error: $e");
+    } finally {
+      setState(() => _loading = false);
     }
   }
-  
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            const Text("Pressione para receber os dados da API (Consulte o DEBUG CONSOLE ou TERMINAL):"),
-            ElevatedButton(onPressed: fetchData, child: const Text("Fetch data"),),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class DashboardScreen extends StatelessWidget {
-  const DashboardScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.backgroundDark,
       appBar: AppBarWidget(
-        title: 'Dashboard',
+        title: 'New Dashboard (Teste de API)',
         actions: [
           IconButton(
-            onPressed: () {
-              Navigator.pop(context);
-              print("Return button pressed!");
-            },
-            icon: const Icon(Icons.arrow_back),
-          ),
-          IconButton(
-            onPressed: () {
-              print("Refresh pressed!");
-            },
+            onPressed: _loadQuotes,
             icon: const Icon(Icons.refresh),
           ),
           IconButton(
-            onPressed: () {
-              print("Search button pressed!");
-            },
-            icon: const Icon(Icons.search_off_sharp),
+            onPressed: (){print("Search Button Pressed!!");},
+            icon: const Icon(Icons.search),
           ),
         ],
       ),
-      body: GridView.builder(
-        itemCount: 3,
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 1,
-          mainAxisSpacing: 20,
-          crossAxisSpacing: 20,
-          childAspectRatio: 1.5,
-        ),
-        itemBuilder: (context, index) {
-          return MouseRegion(
-            cursor: SystemMouseCursors.click,
-            child: GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const ProductScreen(),
+      body: _loading
+          ? const Center(
+              child: CircularProgressIndicator(color: AppColors.backgroundLight), // uso do Atom
+            )
+          : _quotes.isEmpty
+              ? const Center(
+                  child: Text(
+                    "Nenhum dado encontrado",
+                    style: TextStyle(color: AppColors.backgroundLight), // uso do Atom
                   ),
-                );
-              },
-              child: Card(
-                color: AppColors.veryLightGrey,
-                child: Center(
-                  child: Image.asset(
-                    "assets/images/product_1_lemon.png",
-                    fit: BoxFit.cover,
+                )
+              : GridView.builder(
+                  padding: const EdgeInsets.all(16),
+                  itemCount: _quotes.length,
+                  gridDelegate:
+                      const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    mainAxisSpacing: 20,
+                    crossAxisSpacing: 20,
+                    childAspectRatio: 0.8,
                   ),
+                  itemBuilder: (context, index) {
+                    final quote = _quotes[index];
+                    return MouseRegion(
+                      cursor: SystemMouseCursors.click,
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const ProductScreen(),
+                            ),
+                          );
+                        },
+                        child: Card(
+                          color: AppColors.veryLightGrey,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                          elevation: 4,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              Expanded(
+                                child: ClipRRect(
+                                  borderRadius: const BorderRadius.vertical(
+                                    top: Radius.circular(16),
+                                  ),
+                                  child: quote.poster.isNotEmpty
+                                      ? Image.network(
+                                          quote.poster,
+                                          fit: BoxFit.cover,
+                                          width: double.infinity,
+                                          loadingBuilder: (context, child,
+                                              loadingProgress) {
+                                            if (loadingProgress == null) {
+                                              return child;
+                                            }
+                                            return const Center(
+                                              child:
+                                                  CircularProgressIndicator(),
+                                            );
+                                          },
+                                          errorBuilder:
+                                              (context, error, stackTrace) =>
+                                                  const Icon(
+                                            Icons.broken_image,
+                                            size: 48,
+                                            color: AppColors.grey, // uso do Atom
+                                          ),
+                                        )
+                                      : const Icon(
+                                          Icons.image_not_supported,
+                                          size: 48,
+                                          color: AppColors.grey, // uso do Atom
+                                        ),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(12),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      quote.fullLine,
+                                      maxLines: 2,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: TextStyles.label.copyWith( // uso dos Atoms
+                                        color: AppColors.borderColor,
+                                      )
+                                    ),
+                                    const SizedBox(height: 6),
+                                    Text(
+                                      "- ${quote.character}",
+                                      style: TextStyles.label.copyWith( //".copyWith", permite caso queira personalizar o atom já definido + uso dos Atoms.
+                                        color: AppColors.borderColor
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    );
+                  },
                 ),
-              ),
-            ),
-          );
-        },
-      ),
     );
   }
 }
