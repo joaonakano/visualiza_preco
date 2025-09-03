@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../../constants/app_colors.dart';
+import '../../constants/app_spacings.dart';
 
 class ImageCard extends StatelessWidget {
   final String imagePath;
@@ -6,28 +8,25 @@ class ImageCard extends StatelessWidget {
   final double? imageHeight;
   final double? cardHeight;
   final double? cardWidth;
-  
+
   const ImageCard({
+    super.key,
     required this.imagePath,
     this.cardHeight = 300,
-    this.cardWidth = 290, 
+    this.cardWidth = 290,
     this.imageHeight,
     this.imageWidth,
-    super.key
   });
 
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: Colors.white10,
+      color: AppColors.veryLightGrey,
       shadowColor: Colors.black,
-      elevation: 10,
+      elevation: AppSpacings.cardElevation,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20),
-        side: BorderSide(
-          color: Colors.white12,
-          width: 3,
-        ),
+        borderRadius: BorderRadius.circular(AppSpacings.borderRadius20),
+        side: BorderSide(color: AppColors.veryLightGrey, width: 3),
       ),
       clipBehavior: Clip.hardEdge,
       child: SizedBox(
@@ -41,7 +40,7 @@ class ImageCard extends StatelessWidget {
             fit: BoxFit.cover,
           ),
         ),
-      )
+      ),
     );
   }
 }

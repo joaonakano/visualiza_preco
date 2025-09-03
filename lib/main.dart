@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_visualizador_de_precos/screens/home_screen.dart';
 import 'package:flutter_visualizador_de_precos/screens/user/login_screen.dart';
-import 'package:flutter_visualizador_de_precos/screens/product/product_screen.dart';
+import 'package:flutter_visualizador_de_precos/shared/theme/app_theme.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,10 +14,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Consulta Preço Login',
-      theme: ThemeData(
-        primarySwatch: Colors.deepPurple,
-      ),
-      home: LoginScreen(),
+      theme: AppTheme.lightTheme,
+      home: const LoginScreen(),
     );
   }
 }

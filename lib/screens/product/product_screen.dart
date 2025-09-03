@@ -1,7 +1,9 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_visualizador_de_precos/widgets/appbar.dart';
-import 'package:flutter_visualizador_de_precos/widgets/image_card.dart';
+import 'package:flutter_visualizador_de_precos/shared/constants/app_colors.dart';
+import 'package:flutter_visualizador_de_precos/shared/constants/app_text_styles.dart';
+import 'package:flutter_visualizador_de_precos/shared/widgets/molecules/app_bar_widget.dart';
+import 'package:flutter_visualizador_de_precos/shared/widgets/molecules/image_card.dart';
 
 class ProductScreen extends StatelessWidget {
   const ProductScreen({super.key});
@@ -9,35 +11,24 @@ class ProductScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[900],
+      backgroundColor: AppColors.backgroundDark,
       appBar: AppBarWidget(
-        height: 70,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            IconButton(
-              onPressed: () {
-                Navigator.pop(context);
-                print("Return button pressed!");
-              },
-              icon: Icon(
-                Icons.arrow_back_ios_new_outlined,
-                color: Colors.white54,
-                size: 35,
-              )
-            ),
-            IconButton(
-              onPressed: () {
-                print("Search button pressed!");
-              },
-              icon: Icon(
-                Icons.search_off_sharp,
-                color: Colors.white54,
-                size: 35,
-              ),
-            ),
-          ],
-        ),
+        title: 'Product Details',
+        actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+              print("Return button pressed!");
+            },
+            icon: const Icon(Icons.arrow_back_ios_new_outlined),
+          ),
+          IconButton(
+            onPressed: () {
+              print("Search button pressed!");
+            },
+            icon: const Icon(Icons.search_off_sharp),
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -47,98 +38,89 @@ class ProductScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 ImageCard(imagePath: "assets/images/product_1_lemon.png"),
-                const SizedBox(height: 40,),
+                const SizedBox(height: 40),
                 Text(
                   "Combo Algébrico",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 40,
-          
-                  ),
+                  style: TextStyle(color: AppColors.lightGrey, fontSize: 40),
                 ),
-                const SizedBox(height: 40,),
+                const SizedBox(height: 40),
                 SizedBox(
                   width: 400,
                   child: Container(
                     decoration: BoxDecoration(
-                      color: Colors.black26,
+                      color: AppColors.grey,
                       borderRadius: BorderRadius.circular(20),
-                      border: Border.all(width: 1.5)
+                      border: Border.all(width: 1.5),
                     ),
-                    padding: EdgeInsets.all(20),
+                    padding: const EdgeInsets.all(20),
                     child: Text(
-                      "\tNão peça pelo lanche, não peça pelo número, peça pela equação: 2x = burger",
+                      "Não peça pelo lanche, não peça pelo número, peça pela equação: 2x = burger",
                       textAlign: TextAlign.justify,
-                      style: TextStyle(
-                        color: Colors.white60,
+                      style: const TextStyle(
+                        color: AppColors.lightGrey,
                         fontSize: 20,
                         fontStyle: FontStyle.italic,
                         fontWeight: FontWeight.w200,
-                        fontFamily: "JetBrainsMono"
+                        fontFamily: "JetBrainsMono",
                       ),
                     ),
                   ),
                 ),
-                const SizedBox(height: 30,),
+                const SizedBox(height: 30),
                 Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Flexible(
-                      child: const Text(
+                      child: Text(
                         "Código de Barras: ",
                         style: TextStyle(
-                          color: Colors.white,
+                          color: AppColors.lightGrey,
                           fontSize: 20,
                         ),
                       ),
                     ),
-                    
                     Flexible(
-                      child: const Text(
+                      child: Text(
                         "AB0000128CS1500",
                         style: TextStyle(
-                          color: Colors.white,
+                          color: AppColors.lightGrey,
                           fontSize: 25,
                         ),
                       ),
                     ),
                   ],
                 ),
-                const SizedBox(height: 30,),
+                const SizedBox(height: 30),
                 Row(
-                  spacing: 15,
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    const Text(
+                    Text(
                       "Unidades Disponíveis (UN):",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20,
-                      ),
+                      style: TextStyles.subtitle,
                     ),
                     Text(
                       "2",
                       style: TextStyle(
-                        color: Colors.red[600],
+                        color: AppColors.error,
                         fontSize: 30,
-                        fontWeight: FontWeight.bold
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                   ],
                 ),
-                const SizedBox(height: 20,),
+                const SizedBox(height: 20),
                 const Text(
                   "R\$ 149,23",
-                  style: TextStyle(
-                    color: Colors.green,
-                    fontSize: 50
-                  ),
+                  style: TextStyle(color: AppColors.success, fontSize: 50),
                 ),
-                const SizedBox(height: 20,),
+                const SizedBox(height: 20),
                 AspectRatio(
                   aspectRatio: 2.5,
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 40,
+                      vertical: 10,
+                    ),
                     child: LineChart(
                       LineChartData(
                         lineBarsData: [
@@ -154,46 +136,53 @@ class ProductScreen extends StatelessWidget {
                               FlSpot(7, 4.5),
                               FlSpot(8, 5),
                             ],
-                            gradient: LinearGradient(colors: [
-                              Colors.lightBlueAccent,
-                              Colors.blue.shade600
-                            ], begin: Alignment.topCenter),
+                            gradient: LinearGradient(
+                              colors: [
+                                AppColors.accentBlue,
+                                AppColors.primaryBlue,
+                              ],
+                              begin: Alignment.topCenter,
+                            ),
                             isCurved: true,
                             belowBarData: BarAreaData(
                               show: true,
-                              gradient: LinearGradient(colors: [
-                                Colors.lightBlueAccent.withAlpha(90),
-                                Colors.blue.shade800.withAlpha(60),
-                              ])
+                              gradient: LinearGradient(
+                                colors: [
+                                  AppColors.blueGradientAlpha1,
+                                  AppColors.blueGradientAlpha2,
+                                ],
+                              ),
                             ),
-                            curveSmoothness: 0.3
+                            curveSmoothness: 0.3,
                           ),
                         ],
-                        titlesData: FlTitlesData(
-                          show: false
-                        ),
+                        titlesData: FlTitlesData(show: false),
                         extraLinesData: ExtraLinesData(
-                          horizontalLines: [HorizontalLine(y: 5)]
+                          horizontalLines: [HorizontalLine(y: 5)],
                         ),
                         lineTouchData: LineTouchData(
-                          touchTooltipData: LineTouchTooltipData(getTooltipItems: (touchedSpots) =>
-                            touchedSpots.map((LineBarSpot touchedSpot) {
+                          touchTooltipData: LineTouchTooltipData(
+                            getTooltipItems: (touchedSpots) => touchedSpots.map((
+                              LineBarSpot touchedSpot,
+                            ) {
                               final textStyle = TextStyle(
-                                color: touchedSpot.bar.gradient?.colors.first ??
-                                    touchedSpot.bar.color ??
-                                    Colors.blueGrey,
+                                color:
+                                    touchedSpot.bar.gradient?.colors.first ??
+                                    AppColors.textDark,
                                 fontWeight: FontWeight.bold,
                                 fontSize: 14,
                               );
-                              // Heavy Black Magic to convert DOUBLE to REAL
-                              return LineTooltipItem("R\$ ${touchedSpot.y.truncate()},${((touchedSpot.y - touchedSpot.y.truncate()) * 100).round()}", textStyle);
-                            }).toList()
-                          )
-                        )
+                              return LineTooltipItem(
+                                "R\$ ${touchedSpot.y.truncate()},${((touchedSpot.y - touchedSpot.y.truncate()) * 100).round()}",
+                                textStyle,
+                              );
+                            }).toList(),
+                          ),
+                        ),
                       ),
                     ),
-                  )
-                )       
+                  ),
+                ),
               ],
             ),
           ),
@@ -202,5 +191,3 @@ class ProductScreen extends StatelessWidget {
     );
   }
 }
-
-
