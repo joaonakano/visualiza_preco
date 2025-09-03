@@ -1,11 +1,48 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_visualizador_de_precos/models/keanu_quotes_model.dart';
 import 'package:flutter_visualizador_de_precos/screens/product/product_screen.dart';
+import 'package:flutter_visualizador_de_precos/services/keanu_service.dart';
 import 'package:flutter_visualizador_de_precos/shared/constants/app_colors.dart';
 import 'package:flutter_visualizador_de_precos/shared/widgets/molecules/app_bar_widget.dart';
 //barra superior
 //3 barras na esquerda
 //meio recarregar
 //direita pesquisar
+
+class NewDashBoard extends StatefulWidget {
+  const NewDashBoard({super.key});
+
+  @override
+  State<NewDashBoard> createState() => _NewDashBoardState();
+}
+
+class _NewDashBoardState extends State<NewDashBoard> {
+  void fetchData() async {
+    try {
+      List<Quote> quotes = await KeanuService().fetchQuotes(); 
+      print(quotes);
+    } catch (e) {
+      print("Error: $e");
+    }
+  }
+  
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const Text("Pressione para receber os dados da API (Consulte o DEBUG CONSOLE ou TERMINAL):"),
+            ElevatedButton(onPressed: fetchData, child: const Text("Fetch data"),),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
 class DashboardScreen extends StatelessWidget {
   const DashboardScreen({super.key});
 

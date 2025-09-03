@@ -39,7 +39,7 @@ class _LoginScreenState extends State<LoginScreen> {
       );
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => const DashboardScreen()),
+        MaterialPageRoute(builder: (context) => const NewDashBoard()),
       );
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
