@@ -34,20 +34,20 @@ class Quote {
 
   @override
   String toString() {
-    return 'Quote('
-      'movie: $movie'
-      'year: $year'
-      'release_date: $releaseDate'
-      'director: $director'
-      'character: $character'
-      'movie_duration: $movieDuration'
-      'timestamp: $timestamp'
-      'full_line: $fullLine'
-      'current_whoa_in_movie: $currentWhoaInMovie'
-      'total_whoas_in_movie: $totalWhoasInMovie'
-      'video: $video'
-      'poster: $poster'
-    ')';
+    return '''Quote(
+      movie: $movie,
+      year: $year,
+      release_date: $releaseDate,
+      director: $director,
+      character: $character,
+      movie_duration: $movieDuration, 
+      timestamp: $timestamp, 
+      full_line: $fullLine, 
+      current_whoa_in_movie: $currentWhoaInMovie,
+      total_whoas_in_movie: $totalWhoasInMovie,
+      poster: $poster
+      video: $video
+    )''';
   }
 }
 
@@ -71,12 +71,12 @@ class Video {
 
   @override
   String toString() {
-    return 'Video('
-      '1080p: $fullhd'
-      '720p: $hd'
-      '480p: $mediumLow'
-      '360p: $low'
-    ')';
+    return '''Video(
+        1080p: $fullhd, 
+        720p: $hd, 
+        480p: $mediumLow,
+        360p: $low
+      )''';
   }
 }
 
