@@ -5,7 +5,7 @@ import 'app_colors.dart';
 
 class TextStyles {
   static final TextStyle title = GoogleFonts.outfit(
-    color: AppColors.lightGrey,
+    color: AppColors.borderColor,
     fontSize: 36,
     fontWeight: FontWeight.bold,
   );
