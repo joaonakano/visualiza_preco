@@ -16,15 +16,25 @@ class ProductViewOrganism extends StatelessWidget {
     // Uso de Templates
     return MainLayoutTemplate(
       appBar: AppBarWidget(title: "Detalhes do CU"),  // Uso de Molecules
-      body: Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          ImageCard(imagePath: quote.poster),
-          SizedBox(height: 20),
-          AppText(content: quote.fullLine, fontSize: 40, color: AppColors.backgroundLight, fontWeight: FontWeight.bold,)
-        ],
+      body: SingleChildScrollView(
+        padding: EdgeInsets.all(10),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              ImageCard(imagePath: quote.poster),
+              SizedBox(height: 20),
+              AppText(content: quote.fullLine, fontSize: 40, color: AppColors.backgroundLight, fontWeight: FontWeight.bold, textAlign: TextAlign.center,),
+              AppText(content: quote.movie),
+              AppText(content: quote.year.toString()),
+              AppText(content: "Curiosidades Keanu-Reeveanas", color: AppColors.grey, fontSize: 25,),
+              AppText(content: "Character: ${quote.character}"),
+              AppText(content: "Timestamp: ${quote.timestamp}"),
+              AppText(content: "Release Date: ${quote.releaseDate}"),
+              AppText(content: "É o ${quote.currentWhoaInMovie}° Whoa dito no filme!"),
+            ],
+            ),
         ),
       ),
     );
