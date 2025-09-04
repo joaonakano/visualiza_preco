@@ -7,9 +7,9 @@ class KeanuService {
   static const String _baseUrl = "https://whoa.onrender.com/whoas/random";
 
   // Função assíncrona que solicita os dados da API
-  Future<List<Quote>> fetchQuotes() async {
+  Future<List<Quote>> fetchQuotes(int totalQuotes) async {
     final response = await http.get(
-      Uri.parse(_baseUrl)
+      Uri.parse("$_baseUrl?results=$totalQuotes")
     );
 
     if (response.statusCode == 200) {

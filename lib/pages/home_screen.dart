@@ -28,11 +28,12 @@ class _NewDashBoardState extends State<NewDashBoard> {
     setState(() => _loading = true);
 
     try { // Aplicação tenta solicitar os dados da API
-      _quotes = await KeanuService().fetchQuotes();
+      _quotes = await KeanuService().fetchQuotes(10);
     } catch (e) { // Qualquer erro na solicitação é retornado
       debugPrint("Error: $e");
     } finally { // Se tudo correr bem, descartar a animação de loading
       setState(() => _loading = false);
+      print(_quotes);
     }
   }
 
