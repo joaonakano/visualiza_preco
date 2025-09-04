@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../widgets/atoms/app_button.dart';
-import '../../widgets/molecules/app_form_field.dart';
+import '../atoms/app_button.dart';
+import '../molecules/app_form_field.dart';
 
 class LoginFormOrganism extends StatefulWidget {
   final GlobalKey<FormState> formKey;

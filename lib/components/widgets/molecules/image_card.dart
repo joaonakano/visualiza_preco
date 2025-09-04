@@ -33,7 +33,7 @@ class ImageCard extends StatelessWidget {
         height: cardHeight,
         width: cardWidth,
         child: FittedBox(
-          child: Image.asset(
+          child: Image.network(
             imagePath,
             height: imageHeight ?? cardHeight,
             width: imageWidth ?? cardWidth,

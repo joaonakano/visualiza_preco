@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_visualizador_de_precos/models/keanu_quotes_model.dart';
-import 'package:flutter_visualizador_de_precos/screens/product/product_screen.dart';
+import 'package:flutter_visualizador_de_precos/pages/product/product_screen.dart';
 import 'package:flutter_visualizador_de_precos/services/keanu_service.dart';
-import 'package:flutter_visualizador_de_precos/shared/constants/app_colors.dart';
-import 'package:flutter_visualizador_de_precos/shared/constants/app_text_styles.dart';
-import 'package:flutter_visualizador_de_precos/shared/widgets/molecules/app_bar_widget.dart';
+import 'package:flutter_visualizador_de_precos/components/constants/app_colors.dart';
+import 'package:flutter_visualizador_de_precos/components/constants/app_text_styles.dart';
+import 'package:flutter_visualizador_de_precos/components/widgets/molecules/app_bar_widget.dart';
 
 class NewDashBoard extends StatefulWidget {
   const NewDashBoard({super.key});
@@ -23,13 +23,15 @@ class _NewDashBoardState extends State<NewDashBoard> {
     _loadQuotes();
   }
 
-  Future<void> _loadQuotes() async { //adaptada do fetchData para que possa utilizar a animação de Load dos Quotes.
+  // Adaptação do fetchData para poder utilizar a animação de loading das Quotes
+  Future<void> _loadQuotes() async { 
     setState(() => _loading = true);
-    try {
+
+    try { // Aplicação tenta solicitar os dados da API
       _quotes = await KeanuService().fetchQuotes();
-    } catch (e) {
+    } catch (e) { // Qualquer erro na solicitação é retornado
       debugPrint("Error: $e");
-    } finally {
+    } finally { // Se tudo correr bem, descartar a animação de loading
       setState(() => _loading = false);
     }
   }
@@ -81,7 +83,7 @@ class _NewDashBoardState extends State<NewDashBoard> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const ProductScreen(),
+                              builder: (context) => ProductScreen(quote: quote),
                             ),
                           );
                         },
@@ -145,7 +147,7 @@ class _NewDashBoardState extends State<NewDashBoard> {
                                     const SizedBox(height: 6),
                                     Text(
                                       "- ${quote.character}",
-                                      style: TextStyles.label.copyWith( //".copyWith", permite caso queira personalizar o atom já definido + uso dos Atoms.
+                                      style: TextStyles.label.copyWith( //".copyWith", permite personalizar um atom já definido + uso dos Atoms
                                         color: AppColors.borderColor
                                       ),
                                     ),

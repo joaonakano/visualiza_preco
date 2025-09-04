@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../constants/app_colors.dart';
-import '../../widgets/molecules/app_card.dart';
+import '../molecules/app_card.dart';
 
 class ProductListCard extends StatelessWidget {
   final String title;

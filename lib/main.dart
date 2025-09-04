@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_visualizador_de_precos/screens/user/login_screen.dart';
-import 'package:flutter_visualizador_de_precos/shared/theme/app_theme.dart';
+import 'package:flutter_visualizador_de_precos/pages/user/login_screen.dart';
+import 'package:flutter_visualizador_de_precos/components/theme/app_theme.dart';
 
 void main() {
   runApp(const MyApp());

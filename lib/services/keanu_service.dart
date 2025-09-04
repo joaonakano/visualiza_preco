@@ -6,14 +6,15 @@ import 'package:http/http.dart' as http;
 class KeanuService {
   static const String _baseUrl = "https://whoa.onrender.com/whoas/random";
 
+  // Função assíncrona que solicita os dados da API
   Future<List<Quote>> fetchQuotes() async {
     final response = await http.get(
       Uri.parse(_baseUrl)
     );
 
     if (response.statusCode == 200) {
-      // response OK
-      // Esse code da b.o: return Quote.fromJson(jsonDecode(response.body) as Map<String, dynamic>);
+      // Se a response for OK (200),
+      // Desempacotar o json em objetos Quote
       List<dynamic> list = jsonDecode(response.body);
       return list.map((json) => Quote.fromJson(json)).toList();
     } else {

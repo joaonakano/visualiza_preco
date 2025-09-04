@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_visualizador_de_precos/screens/home_screen.dart';
-import 'package:flutter_visualizador_de_precos/shared/constants/app_colors.dart';
-import 'package:flutter_visualizador_de_precos/shared/constants/app_text_styles.dart';
-import 'package:flutter_visualizador_de_precos/shared/widgets/atoms/app_button.dart';
-import 'package:flutter_visualizador_de_precos/shared/widgets/molecules/app_form_field.dart';
+import 'package:flutter_visualizador_de_precos/pages/home_screen.dart';
+import 'package:flutter_visualizador_de_precos/components/constants/app_colors.dart';
+import 'package:flutter_visualizador_de_precos/components/constants/app_text_styles.dart';
+import 'package:flutter_visualizador_de_precos/components/widgets/atoms/app_button.dart';
+import 'package:flutter_visualizador_de_precos/components/widgets/molecules/app_form_field.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});

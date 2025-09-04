@@ -1,4 +1,4 @@
-// objeto que armazena uma quote e as informações importantes, como fotos, vídeos e metadados.
+// Objeto que armazena uma Quote e as informações importantes, como fotos, vídeos e metadados.
 class Quote {
   final String movie;
   final int year;
@@ -15,7 +15,7 @@ class Quote {
 
   Quote({required this.character, required this.currentWhoaInMovie, required this.director, required this.fullLine, required this.movie, required this.movieDuration, required this.poster, required this.releaseDate, required this.timestamp, required this.totalWhoasInMovie, required this.video, required this.year});
 
-  factory Quote.fromJson(Map<String, dynamic> json) {
+  factory Quote.fromJson(Map<String, dynamic> json) { // Desempacotamento das informações do JSON para um novo objeto Quote com os atributos já definidos
     return Quote(
       movie: json["movie"],
       year: json["year"],
@@ -33,7 +33,7 @@ class Quote {
   }
 
   @override
-  String toString() {
+  String toString() { // Adaptação do toString, exibindo as informações relevantes do Objeto ao ser invocado
     return '''Quote(
       movie: $movie,
       year: $year,
@@ -51,7 +51,7 @@ class Quote {
   }
 }
 
-// objeto que armazena os links em outras qualidades do video da quote
+// Objeto que armazena os links em outras qualidades do video da quote
 class Video {
   final String fullhd;
   final String hd;
@@ -60,7 +60,7 @@ class Video {
 
   Video({required this.fullhd, required this.hd, required this.mediumLow, required this.low});
 
-  factory Video.fromJson(Map<String, dynamic>json) {
+  factory Video.fromJson(Map<String, dynamic>json) {  // Desempacotamento das informações vindas do JSON para um novo objeto Video com seus atributos bem definidos
     return Video(
       fullhd: json["1080p"],
       hd: json["720p"],
@@ -70,7 +70,7 @@ class Video {
   }
 
   @override
-  String toString() {
+  String toString() { // Adaptação do toString, exibindo as informações relevantes do Objeto ao ser invocado
     return '''Video(
         1080p: $fullhd, 
         720p: $hd, 
@@ -80,13 +80,13 @@ class Video {
   }
 }
 
-// objeto que armazena uma lista de objetos Quote -- necessario para armazenar mais de uma quote vinda da API
+// Objeto que armazena uma lista de objetos Quote -- necessario para armazenar mais de uma quote vinda da API
 class QuotesList {
   final List<Quote> quotes;
 
   QuotesList({required this.quotes});
 
-  factory QuotesList.fromJson(List<dynamic> parsedJson) {
+  factory QuotesList.fromJson(List<dynamic> parsedJson) { // Desempacotamento dos objetos JSON em uma série de Objetos Quotes com atributos definidos
     List<Quote> quotes = parsedJson.map((quote) => Quote.fromJson(quote)).toList();
 
     return QuotesList(quotes: quotes);
