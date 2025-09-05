@@ -41,6 +41,6 @@ Na tela de produto, contaremos com as informações completas de um determinado 
 Para exemplificar a tela, utilizamos alguns dados da API Woah do Keanu Reeves, abaixo estão elencadas as principais informações utilizadas pelo aplicativo.
 
 <p align="center">
-  <img src="assets/readme/3.png.png">
-  <img src="assets/readme/4.png.png">
+  <img src="assets/readme/3.png">
+  <img src="assets/readme/4.png">
 </p>
