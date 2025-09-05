@@ -8,6 +8,14 @@ Como esse é o código-fonte, é necessário haver previamente as extensões de 
 
 Para executar, basta utilizar o comando ``flutter run -d windows``, ou somente ``flutter run``, se deseja escolher o ambiente de emulação.
 
+## Atualizações
+
+Para complementar a construção do aplicativo, utilizamos o modelo Atomic Design que visa atomizar o layout de uma página através de componentes indivisíveis que, juntos, formam outras estruturas mais complexas. As páginas do aplicativo foram substituídas para se encaixar melhor no padrão do Atomic Design.
+
+Além disso, parte do layout foi simplificado para garantir uma melhor fluidez e experiência de usuário.
+
+Por fim, foi utilizada uma API pública para capturar e tratar os dados dentro do sistema, a fim de treinar e consolidar o aprendizado de sala de aula. O link para a API se encontra em https://whoa.onrender.com/
+
 ## Entregas
 
 ### Tela de Login
@@ -15,7 +23,7 @@ Para executar, basta utilizar o comando ``flutter run -d windows``, ou somente `
 É neste momento que o usuário poderá fazer login ou registro dentro do aplicativo. Abaixo, uma demonstração inicial da tela de login, conta também com validação básica de e-mail e senha.
 
 <p align="center">
-  <img src="image.png">
+  <img src="assets/readme/1.png">
 </p>
 
 ### Tela de Dashboard
@@ -23,14 +31,16 @@ Para executar, basta utilizar o comando ``flutter run -d windows``, ou somente `
 É na tela de dashboard que usuário terá controle do aplicativo, podendo alternar entre produtos ou funcionalidades. Abaixo, uma imagem que demonstra inicialmente a estrutura básica sem menus dos produtos.
 
 <p align="center">
-  <img src="image-1.png">
+  <img src="assets/readme/2.png.png">
 </p>
 
 ### Tela de Produto
 
 Na tela de produto, contaremos com as informações completas de um determinado item no estoque, contando com preços atuais, estoque disponível, descrições e gráficos de histórico. Abaixo, uma imagem que demonstra inicialmente essa funcionalidade.
 
+Para exemplificar a tela, utilizamos alguns dados da API Woah do Keanu Reeves, abaixo estão elencadas as principais informações utilizadas pelo aplicativo.
+
 <p align="center">
-  <img src="image-2.png">
-  <img src="image-3.png">
+  <img src="assets/readme/3.png.png">
+  <img src="assets/readme/4.png.png">
 </p>
