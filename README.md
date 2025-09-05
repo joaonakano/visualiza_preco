@@ -10,11 +10,12 @@ Para executar, basta utilizar o comando ``flutter run -d windows``, ou somente `
 
 ## Atualizações
 
+### Segunda Parte da Entrega (05/09/2025)
 Para complementar a construção do aplicativo, utilizamos o modelo Atomic Design que visa atomizar o layout de uma página através de componentes indivisíveis que, juntos, formam outras estruturas mais complexas. As páginas do aplicativo foram substituídas para se encaixar melhor no padrão do Atomic Design.
 
 Além disso, parte do layout foi simplificado para garantir uma melhor fluidez e experiência de usuário.
 
-Por fim, foi utilizada uma API pública para capturar e tratar os dados dentro do sistema, a fim de treinar e consolidar o aprendizado de sala de aula. O link para a API se encontra em https://whoa.onrender.com/
+Concluindo, foi utilizada uma API pública para capturar e tratar os dados dentro do sistema, a fim de treinar e consolidar o aprendizado de sala de aula. O link para a API se encontra em https://whoa.onrender.com/
 
 ## Entregas
 
