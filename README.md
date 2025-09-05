@@ -32,7 +32,7 @@ Concluindo, foi utilizada uma API pública para capturar e tratar os dados dentr
 É na tela de dashboard que usuário terá controle do aplicativo, podendo alternar entre produtos ou funcionalidades. Abaixo, uma imagem que demonstra inicialmente a estrutura básica sem menus dos produtos.
 
 <p align="center">
-  <img src="assets/readme/2.png.png">
+  <img src="assets/readme/2.png">
 </p>
 
 ### Tela de Produto
