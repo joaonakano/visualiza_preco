@@ -17,26 +17,156 @@ class ProductViewOrganism extends StatelessWidget {
     return MainLayoutTemplate(
       appBar: AppBarWidget(title: "Detalhes do CU"),  // Uso de Molecules
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(10),
+        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 30),
         child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              ImageCard(imagePath: quote.poster),
-              SizedBox(height: 20),
-              AppText(content: quote.fullLine, fontSize: 40, color: AppColors.backgroundLight, fontWeight: FontWeight.bold, textAlign: TextAlign.center,),
-              AppText(content: quote.movie),
-              AppText(content: quote.year.toString()),
-              AppText(content: "Curiosidades Keanu-Reeveanas", color: AppColors.grey, fontSize: 25,),
-              AppText(content: "Character: ${quote.character}"),
-              AppText(content: "Timestamp: ${quote.timestamp}"),
-              AppText(content: "Release Date: ${quote.releaseDate}"),
-              AppText(content: "É o ${quote.currentWhoaInMovie}° Whoa dito no filme!"),
-            ],
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 650),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Material(
+                  elevation: 12,
+                  borderRadius: BorderRadius.circular(24),
+                  clipBehavior: Clip.antiAlias,
+                  child: SizedBox(
+                    height: 320,
+                    width: double.infinity,
+                    child: ImageCard(
+                      imagePath: quote.poster,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 28),
+                AppText(
+                  content: quote.fullLine,
+                  fontSize: 34,
+                  color: AppColors.backgroundLight,
+                  fontWeight: FontWeight.w800,
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 18),
+                AppText(
+                  content: quote.movie,
+                  fontSize: 22,
+                  color: AppColors.backgroundLight.withValues(alpha: 0.9),
+                  fontWeight: FontWeight.w700,
+                  textAlign: TextAlign.center,
+                ),
+                AppText(
+                  content: quote.year.toString(),
+                  fontSize: 18,
+                  color: AppColors.backgroundLight.withValues(alpha: 0.65),
+                  fontWeight: FontWeight.w500,
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 36),
+                Container(
+                  alignment: Alignment.center,
+                  child: Column(
+                    children: [
+                      AppText(
+                        content: "Curiosidades Keanu-Reeveanas",
+                        color: AppColors.grey,
+                        fontSize: 26,
+                        fontWeight: FontWeight.w700,
+                        textAlign: TextAlign.center,
+                      ),
+                      const SizedBox(height: 6),
+                      Container(
+                        height: 3,
+                        width: 140,
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            colors: [
+                              AppColors.backgroundLight.withValues(alpha: 0.6),
+                              AppColors.grey.withValues(alpha: 0.6),
+                            ],
+                          ),
+                          borderRadius: BorderRadius.circular(2),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 24),
+                // Info cards with subtle background and rounded corners
+                _buildInfoCard("Character", quote.character),
+                _buildInfoCard("Timestamp", quote.timestamp),
+                _buildInfoCard("Release Date", quote.releaseDate),
+                _buildInfoCard(
+                  "É o ${quote.currentWhoaInMovie}° Whoa dito no filme!",
+                  "",
+                  isFullWidth: true,
+                ),
+              ],
             ),
+          ),
         ),
       ),
+    );
+  }
+
+  Widget _buildInfoCard(String label, String value, {bool isFullWidth = false}) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8),
+      child: isFullWidth
+          ? Container(
+              padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
+              decoration: BoxDecoration(
+                color: AppColors.veryLightGrey.withValues(alpha: 0.15),
+                borderRadius: BorderRadius.circular(16),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withValues(alpha: 0.1),
+                    blurRadius: 8,
+                    offset: const Offset(0, 4),
+                  ),
+                ],
+              ),
+              child: AppText(
+                content: label,
+                fontSize: 20,
+                color: AppColors.backgroundLight.withValues(alpha: 0.85),
+                fontWeight: FontWeight.w600,
+                textAlign: TextAlign.center,
+              ),
+            )
+          : Container(
+              padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 20),
+              decoration: BoxDecoration(
+                color: AppColors.veryLightGrey.withValues(alpha: 0.12),
+                borderRadius: BorderRadius.circular(16),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withValues(alpha: 0.08),
+                    blurRadius: 6,
+                    offset: const Offset(0, 3),
+                  ),
+                ],
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  AppText(
+                    content: "$label:",
+                    fontSize: 18,
+                    color: AppColors.grey,
+                    fontWeight: FontWeight.w700,
+                  ),
+                  const SizedBox(width: 12),
+                  Flexible(
+                    child: AppText(
+                      content: value,
+                      fontSize: 18,
+                      color: AppColors.backgroundLight.withValues(alpha: 0.9),
+                      fontWeight: FontWeight.w500,
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ],
+              ),
+            ),
     );
   }
 }
