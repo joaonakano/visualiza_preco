@@ -90,7 +90,6 @@ class ProductViewOrganism extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 24),
-                // Info cards with subtle background and rounded corners
                 _buildInfoCard("Character", quote.character),
                 _buildInfoCard("Timestamp", quote.timestamp),
                 _buildInfoCard("Release Date", quote.releaseDate),
