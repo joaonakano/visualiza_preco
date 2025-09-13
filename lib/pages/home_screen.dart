@@ -79,7 +79,8 @@ class _NewDashBoardState extends State<NewDashBoard> {
             return Center(
               child: Text(
                 "Erro ao carregar dados",
-                style: TextStyles.label.copyWith( // uso dos Atoms
+                style: TextStyles.label.copyWith(
+                  // uso dos Atoms
                   color: AppColors.error,
                   fontWeight: FontWeight.bold,
                   fontSize: 18,
@@ -94,7 +95,8 @@ class _NewDashBoardState extends State<NewDashBoard> {
             return Center(
               child: Text(
                 "Nenhum dado encontrado",
-                style: TextStyles.label.copyWith( // uso dos Atoms
+                style: TextStyles.label.copyWith(
+                  // uso dos Atoms
                   color: AppColors.backgroundLight,
                   fontSize: 16,
                 ),
@@ -108,18 +110,21 @@ class _NewDashBoardState extends State<NewDashBoard> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Keanu Reeves Quotes',
-                  style: TextStyles.title.copyWith(// uso dos Atoms
-                    color: AppColors.backgroundLight, 
+                  'Keanu Reeves - Falas',
+                  style: TextStyles.title.copyWith(
+                    // uso dos Atoms
+                    color: AppColors.backgroundLight,
                     fontWeight: FontWeight.w700,
                     fontSize: 28,
                   ),
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  'Explore some inspiring quotes from Keanu Reeves.',
+                  'Whoas do Keanu Reeves.',
                   style: TextStyles.subtitle.copyWith(
-                    color: AppColors.backgroundLight.withValues(alpha: 0.7), // uso dos Atoms
+                    color: AppColors.backgroundLight.withValues(
+                      alpha: 0.7,
+                    ), // uso dos Atoms
                     fontSize: 16,
                   ),
                 ),
@@ -130,21 +135,25 @@ class _NewDashBoardState extends State<NewDashBoard> {
                     itemCount: quotes.length,
                     gridDelegate:
                         const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      mainAxisSpacing: 24,
-                      crossAxisSpacing: 24,
-                      childAspectRatio: 0.75,
-                    ),
+                          crossAxisCount: 2,
+                          mainAxisSpacing: 24,
+                          crossAxisSpacing: 24,
+                          childAspectRatio: 0.75,
+                        ),
                     itemBuilder: (context, index) {
                       final quote = quotes[index];
                       return MouseRegion(
                         cursor: SystemMouseCursors.click,
-                        child: GestureDetector(
+                        child: InkWell(
+                          borderRadius: BorderRadius.circular(
+                            20,
+                          ), //MICROINTERAÇÃO
                           onTap: () {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => ProductScreen(quote: quote),
+                                builder: (context) =>
+                                    ProductScreen(quote: quote),
                               ),
                             );
                           },
@@ -176,21 +185,30 @@ class _NewDashBoardState extends State<NewDashBoard> {
                                             fit: BoxFit.cover,
                                             width: double.infinity,
                                             loadingBuilder:
-                                                (context, child, loadingProgress) {
-                                              if (loadingProgress == null) {
-                                                return child;
-                                              }
-                                              return const Center(
-                                                child: CircularProgressIndicator(),
-                                              );
-                                            },
+                                                (
+                                                  context,
+                                                  child,
+                                                  loadingProgress,
+                                                ) {
+                                                  if (loadingProgress == null) {
+                                                    return child;
+                                                  }
+                                                  return const Center(
+                                                    child:
+                                                        CircularProgressIndicator(),
+                                                  );
+                                                },
                                             errorBuilder:
-                                                (context, error, stackTrace) =>
-                                                    const Icon(
-                                              Icons.broken_image,
-                                              size: 56,
-                                              color: AppColors.grey, // uso dos Atoms
-                                            ),
+                                                (
+                                                  context,
+                                                  error,
+                                                  stackTrace,
+                                                ) => const Icon(
+                                                  Icons.broken_image,
+                                                  size: 56,
+                                                  color: AppColors
+                                                      .grey, // uso dos Atoms
+                                                ),
                                           )
                                         : const Icon(
                                             Icons.image_not_supported,
@@ -202,7 +220,8 @@ class _NewDashBoardState extends State<NewDashBoard> {
                                 Padding(
                                   padding: const EdgeInsets.all(16),
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Text(
                                         quote.fullLine,
@@ -220,7 +239,8 @@ class _NewDashBoardState extends State<NewDashBoard> {
                                         "- ${quote.character}",
                                         style: TextStyles.label.copyWith(
                                           //".copyWith", permite personalizar um atom já definido + uso dos Atoms
-                                          color: AppColors.borderColor.withValues(alpha: 0.7),
+                                          color: AppColors.borderColor
+                                              .withValues(alpha: 0.7),
                                           fontStyle: FontStyle.italic,
                                           fontSize: 13,
                                         ),
