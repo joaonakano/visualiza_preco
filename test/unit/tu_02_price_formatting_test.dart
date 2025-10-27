@@ -18,50 +18,50 @@ void main() {
     });
 
     test('Deve formatar preço com centavos corretamente', () {
-      // Arrange
+      
       const double valor = 49.99;
       const String formatoEsperado = 'R\$ 49,99';
 
-      // Act
+   
       final String resultado = PriceCalculator.formatPrice(valor);
 
-      // Assert
+     
       expect(resultado, equals(formatoEsperado));
     });
 
     test('Deve formatar valores pequenos corretamente', () {
-      // Arrange
+     
       const double valor = 0.50;
       const String formatoEsperado = 'R\$ 0,50';
 
-      // Act
+     
       final String resultado = PriceCalculator.formatPrice(valor);
 
-      // Assert
+    
       expect(resultado, equals(formatoEsperado));
     });
 
     test('Deve calcular total de lista de preços vazia como zero', () {
-      // Arrange
+    
       final List<double> precos = [];
       const double totalEsperado = 0.0;
 
-      // Act
+   
       final double resultado = PriceCalculator.calculateTotal(precos);
 
-      // Assert
+ 
       expect(resultado, equals(totalEsperado));
     });
 
     test('Deve calcular total de múltiplos preços corretamente', () {
-      // Arrange
+    
       final List<double> precos = [10.0, 20.0, 30.0];
       const double totalEsperado = 60.0;
 
-      // Act
+      
       final double resultado = PriceCalculator.calculateTotal(precos);
 
-      // Assert
+     
       expect(resultado, equals(totalEsperado));
     });
   });

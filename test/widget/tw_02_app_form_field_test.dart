@@ -59,7 +59,7 @@ void main() {
     });
 
     testWidgets('Deve exibir mensagem de erro na validação', (WidgetTester tester) async {
-      // Arrange
+     
       const String labelCampo = 'E-mail';
       const String mensagemErro = 'Digite um e-mail válido';
       final TextEditingController controller = TextEditingController();
@@ -87,20 +87,20 @@ void main() {
         ),
       );
 
-      // Act - Valida o formulário sem preencher
+      
       formKey.currentState!.validate();
       await tester.pump();
 
-      // Assert - Verifica se a mensagem de erro aparece
+      
       expect(find.text(mensagemErro), findsOneWidget);
     });
 
     testWidgets('Deve renderizar campo de senha obscurecido', (WidgetTester tester) async {
-      // Arrange
+      
       const String labelCampo = 'Senha';
       final TextEditingController controller = TextEditingController();
 
-      // Act
+      
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(

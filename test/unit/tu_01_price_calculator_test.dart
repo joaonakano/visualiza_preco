@@ -22,18 +22,18 @@ void main() {
     });
 
     test('Deve calcular desconto de 50% corretamente', () {
-      // Arrange
+      
       const double precoOriginal = 200.0;
       const double percentualDesconto = 50.0;
       const double precoEsperado = 100.0;
 
-      // Act
+    
       final double resultado = PriceCalculator.calculateDiscount(
         precoOriginal,
         percentualDesconto,
       );
 
-      // Assert
+   
       expect(resultado, equals(precoEsperado));
     });
 
@@ -53,11 +53,11 @@ void main() {
     });
 
     test('Deve lançar exceção para desconto maior que 100%', () {
-      // Arrange
+   
       const double precoOriginal = 100.0;
       const double percentualDesconto = 150.0;
 
-      // Act & Assert
+     
       expect(
         () => PriceCalculator.calculateDiscount(
           precoOriginal,

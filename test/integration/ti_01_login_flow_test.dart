@@ -45,9 +45,8 @@ void main() {
       await tester.tap(find.text('Login').last);
       await tester.pumpAndSettle();
 
-      // Assert - Verifica se houve navegação (a tela mudou)
-      // Após login bem-sucedido, não deve estar mais na tela de login
-      // (A navegação ocorreu com sucesso)
+      // Assert - Verifica se houve navegação (se a tela mudou)
+      
       expect(find.byType(TextFormField), findsNothing);
     });
 
@@ -56,7 +55,7 @@ void main() {
     ) async {
       // Arrange
       const String nomeUsuario = 'Maria Santos';
-      const String emailInvalido = 'emailinvalido'; // sem @ e domínio
+      const String emailInvalido = 'emailinvalido'; 
       const String senhaUsuario = '123456';
 
       // Act - Inicia o app
@@ -84,7 +83,7 @@ void main() {
       // Arrange
       const String nomeUsuario = 'Pedro Alves';
       const String emailUsuario = 'pedro@example.com';
-      const String senhaCurta = '123'; // menos de 6 caracteres
+      const String senhaCurta = '123'; 
 
       // Act - Inicia o app
       await tester.pumpWidget(const MyApp());

@@ -27,7 +27,7 @@ void main() {
     });
 
     test('Deve processar corretamente os dados de vídeo da quote', () async {
-      // Arrange
+     
       final KeanuService service = KeanuService();
       const int quantidade = 1;
 
@@ -48,11 +48,11 @@ void main() {
     });
 
     test('Deve buscar múltiplas quotes e validar estrutura', () async {
-      // Arrange
+      
       final KeanuService service = KeanuService();
       const int quantidadeQuotes = 5;
 
-      // Act
+    
       final List<Quote> quotes = await service.fetchQuotes(quantidadeQuotes);
 
       // Assert - Verifica quantidade
@@ -84,10 +84,10 @@ void main() {
     });
 
     test('Deve converter Quote para String corretamente', () async {
-      // Arrange
+      
       final KeanuService service = KeanuService();
 
-      // Act
+      
       final List<Quote> quotes = await service.fetchQuotes(1);
       final Quote quote = quotes.first;
       final String quoteString = quote.toString();

@@ -33,7 +33,7 @@ void main() {
     });
 
     testWidgets('Deve executar callback ao clicar no botão', (WidgetTester tester) async {
-      // Arrange
+      
       const String textoBotao = 'Login';
       bool foiClicado = false;
 
@@ -51,19 +51,19 @@ void main() {
         ),
       );
 
-      // Act - Clica no botão
+      
       await tester.tap(find.text(textoBotao));
       await tester.pump();
 
-      // Assert - Verifica se o callback foi executado
+      
       expect(foiClicado, isTrue);
     });
 
     testWidgets('Deve encontrar widget do tipo ElevatedButton', (WidgetTester tester) async {
-      // Arrange
+     
       const String textoBotao = 'Enviar';
 
-      // Act
+      
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
@@ -75,7 +75,7 @@ void main() {
         ),
       );
 
-      // Assert - Verifica se é um ElevatedButton
+      
       expect(find.byType(ElevatedButton), findsOneWidget);
     });
   });
