@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
+
 import 'package:flutter_visualizador_de_precos/components/widgets/organisms/product_view_organism.dart';
-import 'package:flutter_visualizador_de_precos/models/keanu_quotes_model.dart';
+// 1. Mude o import do modelo
+import 'package:flutter_visualizador_de_precos/models/product_model.dart'; 
 
 class ProductScreen extends StatelessWidget {
-  final Quote quote;
+  // 2. Mude o tipo do objeto de Quote para Product
+  final Product product;
 
-  const ProductScreen({super.key, required this.quote});
+  // 3. Atualize o construtor
+  const ProductScreen({super.key, required this.product});
 
   @override
   Widget build(BuildContext context) {
-    // Uso de Organismos
-    return ProductViewOrganism(quote: quote);
+    // 4. Passe o 'product' para o organismo
+    // (O 'Uso de Organismos' original se mantém)
+    return ProductViewOrganism(product: product);
   }
 }
