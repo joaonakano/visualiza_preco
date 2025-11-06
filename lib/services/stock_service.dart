@@ -9,18 +9,32 @@ class StockService {
       'costPrice': 9.00,
       'stockQuantity': 150,
     },
-    '7891000055018': {
+    '7894900027013': {
       // Ex: Código de uma "Coca-Cola"
       'price': 7.99,
       'costPrice': 3.90,
       'stockQuantity': 300,
     },
-    '7896004000160': {
-      // Ex: Código de um "Salgadinho"
-      'price': 12.90,
-      'costPrice': 6.20,
-      'stockQuantity': 80,
+    
+    '7894900011517': {
+      // Detergente Líquido Neutro 500ml (ta com imagem de cocaKKKKKKKKKK)
+      'price': 8.99,
+      'costPrice': 4.50,
+      'stockQuantity': 200,
     },
+    '7894900700046': {
+      // Coca-Cola 350ml
+      'price': 3.50,
+      'costPrice': 1.80,
+      'stockQuantity': 500,
+    },
+    '7894900530001': {
+      // Coca-Cola Lata 350ml
+      'price': 4.50,
+      'costPrice': 2.20,
+      'stockQuantity': 400,
+    },
+    
   };
 
   /* Esta função vai simula uma chamada de rede para o db.

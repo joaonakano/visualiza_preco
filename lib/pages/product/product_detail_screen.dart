@@ -34,11 +34,10 @@ class ProductDetailPage extends StatelessWidget {
                   borderRadius: BorderRadius.circular(20),
                   child: Image.network(
                     product.imageUrl!,
-                    height: 250,
-                    width: double.infinity,
-                    fit: BoxFit.cover,
+                    height: 300,
+                    fit: BoxFit.contain,
                     errorBuilder: (context, error, stackTrace) => Container(
-                      height: 250,
+                      height: 300,
                       decoration: BoxDecoration(
                         color: AppColors.veryLightGrey,
                         borderRadius: BorderRadius.circular(20),
@@ -49,12 +48,31 @@ class ProductDetailPage extends StatelessWidget {
                         color: AppColors.grey,
                       ),
                     ),
+                    loadingBuilder: (context, child, loadingProgress) {
+                      if (loadingProgress == null) return child;
+                      return Container(
+                        height: 300,
+                        decoration: BoxDecoration(
+                          color: AppColors.veryLightGrey,
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: Center(
+                          child: CircularProgressIndicator(
+                            value: loadingProgress.expectedTotalBytes != null
+                                ? loadingProgress.cumulativeBytesLoaded /
+                                      loadingProgress.expectedTotalBytes!
+                                : null,
+                            color: AppColors.primaryBlue,
+                          ),
+                        ),
+                      );
+                    },
                   ),
                 ),
               )
             else
               Container(
-                height: 250,
+                height: 300,
                 decoration: BoxDecoration(
                   color: AppColors.veryLightGrey,
                   borderRadius: BorderRadius.circular(20),

@@ -9,23 +9,36 @@ class ProductRepository {
   final OpenfoodfactsService _offService = OpenfoodfactsService();
   final StockService _stockService = StockService();
 
-  Future<Product> getFullProductDetails(String barcode) async{
+  Future<Product> getFullProductDetails(String barcode) async {
+    print(
+      "🔍 BARCODE LIDO: $barcode",
+    ); // Debug: ver qual código está sendo escaneado
     late ProductOFF offData;
     Map<String, dynamic>? storeData;
 
     try {
       offData = await _offService.fetchProduct(barcode);
+      print(" Dados OFF encontrados: ${offData.name}");
     } catch (e) {
-      offData = ProductOFF(barcode: barcode, name: "Produto não encontrado", brand: null, imageUrl: null);
-      print("Erro ao buscar na API: $e");
+      offData = ProductOFF(
+        barcode: barcode,
+        name: "Produto não encontrado",
+        brand: null,
+        imageUrl: null,
+      );
+      print(" Erro ao buscar na API: $e");
     }
 
     try {
       storeData = await _stockService.fetchStoreDetails(barcode);
-
+      if (storeData != null) {
+        print(" Dados de estoque encontrados: $storeData");
+      } else {
+        print(" Produto não encontrado no banco de dados local");
+      }
     } catch (e) {
       storeData = null;
-      print("Erro ao buscar no Estoque: $e");
+      print(" Erro ao buscar no Estoque: $e");
     }
 
     return Product(
@@ -36,6 +49,6 @@ class ProductRepository {
       price: storeData?['price'],
       costPrice: storeData?['costPrice'],
       stockQuantity: storeData?['stockQuantity'],
-      );
+    );
   }
 }

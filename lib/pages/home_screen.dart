@@ -17,6 +17,13 @@ class NewDashBoard extends StatefulWidget {
 class _NewDashBoardState extends State<NewDashBoard> {
   final ProductRepository _productRepository = ProductRepository();
   bool _isProcessingScan = false;
+  final TextEditingController _barcodeController = TextEditingController();
+
+  @override
+  void dispose() {
+    _barcodeController.dispose();
+    super.dispose();
+  }
 
   void _startScan() {
     bool scanProcessing = false;
@@ -55,6 +62,111 @@ class _NewDashBoardState extends State<NewDashBoard> {
           ),
         );
       },
+    );
+  }
+
+  void _showManualInputDialog() {
+    _barcodeController.clear();
+
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        backgroundColor: AppColors.backgroundLight,
+        title: Text(
+          'Buscar Produto',
+          style: TextStyles.title.copyWith(
+            color: AppColors.textDark,
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Digite o código de barras:',
+              style: TextStyles.label.copyWith(
+                color: AppColors.textDark.withOpacity(0.7),
+                fontSize: 14,
+              ),
+            ),
+            const SizedBox(height: 12),
+            TextField(
+              controller: _barcodeController,
+              keyboardType: TextInputType.number,
+              autofocus: true,
+              style: TextStyles.label.copyWith(
+                color: AppColors.textDark,
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
+              ),
+              decoration: InputDecoration(
+                hintText: 'Ex: 7894900011517',
+                hintStyle: TextStyles.label.copyWith(
+                  color: AppColors.textDark.withOpacity(0.4),
+                ),
+                filled: true,
+                fillColor: Colors.grey[200],
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  borderSide: BorderSide(color: AppColors.primaryBlue, width: 2),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  borderSide: BorderSide(color: Colors.grey[400]!, width: 1.5),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  borderSide: BorderSide(color: AppColors.primaryBlue, width: 2),
+                ),
+                contentPadding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 14,
+                ),
+              ),
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(ctx).pop(),
+            child: Text(
+              'Cancelar',
+              style: TextStyles.label.copyWith(
+                color: AppColors.textDark.withOpacity(0.6),
+                fontSize: 16,
+              ),
+            ),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              final barcode = _barcodeController.text.trim();
+              if (barcode.isNotEmpty) {
+                Navigator.of(ctx).pop();
+                _handleBarcode(barcode);
+              }
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: AppColors.primaryBlue,
+              foregroundColor: Colors.white,
+              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+              elevation: 2,
+            ),
+            child: Text(
+              'Buscar',
+              style: TextStyles.label.copyWith(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+                fontSize: 16,
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 
@@ -110,9 +222,9 @@ class _NewDashBoardState extends State<NewDashBoard> {
         title: 'Visualizador de Preços',
         actions: [
           IconButton(
-            onPressed: () => debugPrint("Search Button Pressed!!"),
+            onPressed: _showManualInputDialog,
             icon: const Icon(Icons.search),
-            tooltip: 'Buscar',
+            tooltip: 'Buscar por código',
           ),
         ],
       ),
@@ -142,6 +254,26 @@ class _NewDashBoardState extends State<NewDashBoard> {
                   style: TextStyles.label.copyWith(
                     color: AppColors.backgroundLight.withOpacity(0.7),
                     fontSize: 16,
+                  ),
+                ),
+                const SizedBox(height: 24),
+                OutlinedButton.icon(
+                  onPressed: _showManualInputDialog,
+                  icon: const Icon(Icons.keyboard),
+                  label: const Text('Ou digite o código'),
+                  style: OutlinedButton.styleFrom(
+                    foregroundColor: AppColors.backgroundLight,
+                    side: BorderSide(
+                      color: AppColors.backgroundLight.withOpacity(0.5),
+                      width: 2,
+                    ),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 24,
+                      vertical: 16,
+                    ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
                   ),
                 ),
               ],
