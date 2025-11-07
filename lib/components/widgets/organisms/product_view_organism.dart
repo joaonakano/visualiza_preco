@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-
 import 'package:flutter_visualizador_de_precos/components/constants/app_colors.dart';
 import 'package:flutter_visualizador_de_precos/components/constants/app_text_styles.dart';
-
-import 'package:flutter_visualizador_de_precos/models/product_model.dart'; 
+// Importando do DDD
+import 'package:flutter_visualizador_de_precos/fuck-ddd/domain/product/entities/product.dart';
 
 class ProductViewOrganism extends StatelessWidget {
   // 3. Mude de 'Quote' para 'Product'

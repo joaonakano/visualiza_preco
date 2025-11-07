@@ -1,7 +1,7 @@
 /* aqui vai ficar o banco de dados ficticio enquanto nao usamos um de vdd
 ele vai fornecer o preço, custo e quantidade ja que a nossa API nao vai fornecer*/
 
-class StockService {
+class StockDatasource {
   final Map<String, Map<String, dynamic>> _fakeDatabase = {
     '7891000379691': {
       // Ex: Código de um "Nescau"
@@ -15,7 +15,6 @@ class StockService {
       'costPrice': 3.90,
       'stockQuantity': 300,
     },
-    
     '7894900011517': {
       // Detergente Líquido Neutro 500ml (ta com imagem de cocaKKKKKKKKKK)
       'price': 8.99,
@@ -34,13 +33,12 @@ class StockService {
       'costPrice': 2.20,
       'stockQuantity': 400,
     },
-    
   };
 
   /* Esta função vai simula uma chamada de rede para o db.
      Por isso o 'Future' e tem um atraso (delay).
   */
-  Future<Map<String, dynamic>?> fetchStoreDetails(String barcode) async {
+  Future<Map<String, dynamic>?> getStockByBarcode(String barcode) async {
     // Simula o tempo de espera de uma chamada de rede
     await Future.delayed(Duration(milliseconds: 300));
 
@@ -51,5 +49,14 @@ class StockService {
     } else {
       return null;
     }
+  }
+
+  /// Retorna todos os produtos em estoque
+  Future<List<Map<String, dynamic>>> getAllStock() async {
+    await Future.delayed(const Duration(milliseconds: 300));
+
+    return _fakeDatabase.entries.map((entry) {
+      return {'barcode': entry.key, ...entry.value};
+    }).toList();
   }
 }

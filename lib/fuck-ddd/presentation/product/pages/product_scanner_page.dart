@@ -1,23 +1,24 @@
+// lib/fuck-ddd/presentation/product/pages/product_scanner_page.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_visualizador_de_precos/components/constants/app_colors.dart';
 import 'package:flutter_visualizador_de_precos/components/constants/app_text_styles.dart';
 import 'package:flutter_visualizador_de_precos/components/widgets/molecules/app_bar_widget.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
+import 'package:provider/provider.dart';
 
-import '../repositories/product_repository.dart';
-import './product/product_detail_screen.dart';
+import '../controllers/product_controller.dart';
+import 'product_detail_page.dart';
 
-class NewDashBoard extends StatefulWidget {
-  const NewDashBoard({super.key});
+class ProductScannerPage extends StatefulWidget {
+  const ProductScannerPage({super.key});
 
   @override
-  State<NewDashBoard> createState() => _NewDashBoardState();
+  State<ProductScannerPage> createState() => _ProductScannerPageState();
 }
 
-class _NewDashBoardState extends State<NewDashBoard> {
-  final ProductRepository _productRepository = ProductRepository();
-  bool _isProcessingScan = false;
+class _ProductScannerPageState extends State<ProductScannerPage> {
   final TextEditingController _barcodeController = TextEditingController();
+  bool _isProcessing = false;
 
   @override
   void dispose() {
@@ -110,7 +111,10 @@ class _NewDashBoardState extends State<NewDashBoard> {
                 fillColor: Colors.grey[200],
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
-                  borderSide: BorderSide(color: AppColors.primaryBlue, width: 2),
+                  borderSide: BorderSide(
+                    color: AppColors.primaryBlue,
+                    width: 2,
+                  ),
                 ),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
@@ -118,7 +122,10 @@ class _NewDashBoardState extends State<NewDashBoard> {
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
-                  borderSide: BorderSide(color: AppColors.primaryBlue, width: 2),
+                  borderSide: BorderSide(
+                    color: AppColors.primaryBlue,
+                    width: 2,
+                  ),
                 ),
                 contentPadding: const EdgeInsets.symmetric(
                   horizontal: 16,
@@ -170,44 +177,60 @@ class _NewDashBoardState extends State<NewDashBoard> {
     );
   }
 
-  void _handleBarcode(String code) {
+  void _handleBarcode(String barcode) {
     setState(() {
-      _isProcessingScan = true;
+      _isProcessing = true;
     });
 
-    _productRepository
-        .getFullProductDetails(code)
-        .then((product) {
-          setState(() {
-            _isProcessingScan = false;
-          });
+    final controller = context.read<ProductController>();
+    controller.getProduct(barcode).then((_) {
+      setState(() {
+        _isProcessing = false;
+      });
 
-          // Navega para a tela de detalhes do produto escaneado
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => ProductDetailPage(product: product),
-            ),
-          );
-        })
-        .catchError((error) {
-          setState(() {
-            _isProcessingScan = false;
-          });
-          _showErrorDialog("Erro ao buscar produto: $error");
-        });
+      if (controller.error != null) {
+        _showErrorDialog("Erro ao buscar produto: ${controller.error}");
+      } else if (controller.product != null) {
+        // Navega para a tela de detalhes
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ProductDetailPage(barcode: barcode),
+          ),
+        );
+      }
+    });
   }
 
   void _showErrorDialog(String message) {
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: const Text("Erro"),
-        content: Text(message),
+        backgroundColor: AppColors.backgroundLight,
+        title: Text(
+          "Erro",
+          style: TextStyles.title.copyWith(
+            color: AppColors.error,
+            fontSize: 20,
+          ),
+        ),
+        content: Text(
+          message,
+          style: TextStyles.label.copyWith(
+            color: AppColors.textDark,
+            fontSize: 16,
+          ),
+        ),
         actions: [
           TextButton(
-            child: const Text("OK"),
             onPressed: () => Navigator.of(ctx).pop(),
+            child: Text(
+              "OK",
+              style: TextStyles.label.copyWith(
+                color: AppColors.primaryBlue,
+                fontSize: 16,
+              ),
+            ),
           ),
         ],
       ),
@@ -279,8 +302,7 @@ class _NewDashBoardState extends State<NewDashBoard> {
               ],
             ),
           ),
-
-          if (_isProcessingScan)
+          if (_isProcessing)
             Container(
               color: Colors.black.withOpacity(0.7),
               child: const Center(
@@ -292,7 +314,6 @@ class _NewDashBoardState extends State<NewDashBoard> {
             ),
         ],
       ),
-
       floatingActionButton: FloatingActionButton(
         onPressed: _startScan,
         tooltip: 'Escanear Produto',

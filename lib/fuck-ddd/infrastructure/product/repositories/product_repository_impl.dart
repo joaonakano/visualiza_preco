@@ -3,46 +3,75 @@ import 'package:flutter_visualizador_de_precos/fuck-ddd/domain/core/failures.dar
 import 'package:flutter_visualizador_de_precos/fuck-ddd/domain/product/entities/product.dart';
 import 'package:flutter_visualizador_de_precos/fuck-ddd/domain/product/repositories/i_product_repository.dart';
 import 'package:flutter_visualizador_de_precos/fuck-ddd/domain/product/value_objects/barcode.dart';
+
 import '../datasources/product_datasource.dart';
+import '../datasources/stock_datasource.dart';
 
 // implementação da interface do repositorio
+// aqui vai juntar os dados da API (OpenFoodFacts) com os dados locais (Stock)
 class ProductRepositoryImpl implements IProductRepository {
   final IProductDatasource _datasource;
+  final StockDatasource _stockDatasource;
 
-  ProductRepositoryImpl(this._datasource);
-  
+  ProductRepositoryImpl(this._datasource, this._stockDatasource);
+
   // fetch de produto por codigo de barras
   @override
   Future<Either<ProductFailure, Product>> getByBarcode(Barcode barcode) async {
+    late Map<String, dynamic> productData;
+    Map<String, dynamic>? storeData;
+
     // primeiro tenta validar se é possivel pegar os dados da api
     try {
-      final productData = await _datasource.getProductByBarcode(barcode.value);
+      productData = await _datasource.getProductByBarcode(barcode.value);
+      print(" Dados OFF encontrados: ${productData['product_name']}");
+    } catch (e) {
+      print(" Erro ao buscar na API: $e");
+      return left(ProductFailure(e.toString()));
+    }
 
-      return right(Product(
+    // depois busca os dados de estoque local (preço, custo, quantidade)
+    try {
+      storeData = await _stockDatasource.getStockByBarcode(barcode.value);
+      if (storeData != null) {
+        print(" Dados de estoque encontrados: $storeData");
+      } else {
+        print(" Produto não encontrado no banco de dados local");
+      }
+    } catch (e) {
+      storeData = null;
+      print(" Erro ao buscar no Estoque: $e");
+    }
+
+    // retorna o produto com todos os dados combinados
+    return right(
+      Product(
         barcode: barcode,
         name: productData['product_name'] ?? 'Nome não informado',
         brand: productData['brands'],
         imageUrl: productData['image_url'],
-        price: null,          // vamo preencher isso tudo dps com o servico de estoque
-        costPrice: null,
-        stockQuantity: null,
-      ));
-    // senao retorna uma falha
-    } catch (e) {
-      return left(ProductFailure(e.toString()));
-    }
+        price: storeData?['price'],
+        costPrice: storeData?['costPrice'],
+        stockQuantity: storeData?['stockQuantity'],
+      ),
+    );
   }
-  
+
   // fetch de todos os produtos
   @override
   Future<Either<ProductFailure, List<Product>>> getAll() async {
     try {
       final productsData = await _datasource.getAllProducts();
       final products = productsData.map((data) {
-        final barcodeOrFailure = Barcode.create(data['code'] ?? '');    // cria o codigo de barras com validação
+        final barcodeOrFailure = Barcode.create(
+          data['code'] ?? '',
+        ); // cria o codigo de barras com validação
         return barcodeOrFailure.fold(
-          (failure) => throw Exception(failure.message),    // se falhar, retorna uma mensagem de erro
-          (barcode) => Product(   // se der certo, cria uma instancia do produto
+          (failure) => throw Exception(
+            failure.message,
+          ), // se falhar, retorna uma mensagem de erro
+          (barcode) => Product(
+            // se der certo, cria uma instancia do produto
             barcode: barcode,
             name: data['product_name'] ?? 'Nome não informado',
             brand: data['brands'],
