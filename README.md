@@ -19,6 +19,9 @@ Além disso, parte do layout foi simplificado para garantir uma melhor fluidez e
 
 Concluindo, foi utilizada uma API pública para capturar e tratar os dados dentro do sistema, a fim de treinar e consolidar o aprendizado de sala de aula. O link para a API se encontra em https://whoa.onrender.com/
 
+### Primeira Parte da Entrega 2 (07/11/2025)
+A primeira parte da entrega do segundo bimestre foi marcada pela refatoração de código. Nós portamos toda a seção de produtos no padrão DDD, ou Domain-Driven Design, para seguir as boas práticas. Além disso, implementamos a busca por código de barras via câmera do dispositivo e também teclado. Entre outras entregas, realizamos toda a portabilidade do gerenciamento de estados com o Provider do Flutter e implementamos testes automatizados de componente/wiget e os testes unitários.
+
 ## Entregas
 
 ### Tela de Login
@@ -47,7 +50,3 @@ Para exemplificar a tela, utilizamos alguns dados da API Woah do Keanu Reeves, a
   <img src="assets/readme/3.png">
   <img src="assets/readme/4.png">
 </p>
-
-
-### Primeira Parte da Entrega 2 (07/11/2025)
-A primeira parte da entrega do segundo bimestre foi marcada pela refatoração de código. Nós portamos toda a seção de produtos no padrão DDD, ou Domain-Driven Design, para seguir as boas práticas. Além disso, implementamos a busca por código de barras via câmera do dispositivo e também teclado. Entre outras entregas, realizamos toda a portabilidade do gerenciamento de estados com o Provider do Flutter e implementamos testes automatizados de componente/wiget e os testes unitários.
