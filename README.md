@@ -76,7 +76,7 @@ Para melhor gerenciar os estados na arquitetura limpa, optamos por utilizar um P
 
 ### Testes
 
-asdf
+Implementamos 12 testes automatizados divididos em três categorias: 4 testes unitários (validação de Barcode e entidade Product), 4 testes de widget (AppButton e AppCard) e 4 testes de integração (navegação do app e APIs de produtos). Todos os testes utilizam código real do projeto, incluindo chamadas às APIs OpenFoodFacts e StockDatasource(database fake), garantindo a qualidade e confiabilidade do sistema.
 
 <p align="center">
   <img src="assets/readme/5.png">
