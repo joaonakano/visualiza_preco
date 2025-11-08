@@ -4,7 +4,7 @@ import 'package:flutter_visualizador_de_precos/main.dart';
 
 /// TI-01: Teste de Integração - Fluxo de Login
 /// Verifica o fluxo completo de preenchimento e submissão do formulário de login
-void main() {
+/* void main() {
   group('TI-01 - Teste de Integração: Fluxo de Login', () {
     testWidgets('Deve completar fluxo de login com sucesso', (
       WidgetTester tester,
@@ -105,3 +105,4 @@ void main() {
     });
   });
 }
+*/

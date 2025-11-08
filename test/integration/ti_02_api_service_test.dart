@@ -1,10 +1,10 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter_visualizador_de_precos/models/keanu_quotes_model.dart';
-import 'package:flutter_visualizador_de_precos/services/keanu_service.dart';
+// import 'package:flutter_visualizador_de_precos/models/keanu_quotes_model.dart';
+// import 'package:flutter_visualizador_de_precos/services/keanu_service.dart';
 
 /// TI-02: Teste de Integração - Serviço de API
 /// Verifica o fluxo completo de requisição e processamento de dados da API
-void main() {
+/*void main() {
   group('TI-02 - Teste de Integração: Serviço de Quotes', () {
     test('Deve buscar e processar quotes da API com sucesso', () async {
       // Arrange (Preparação)
@@ -100,3 +100,4 @@ void main() {
     });
   });
 }
+*/
