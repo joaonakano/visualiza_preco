@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
-import 'package:flutter_visualizador_de_precos/fuck-ddd/domain/core/failures.dart';
-import 'package:flutter_visualizador_de_precos/fuck-ddd/domain/product/entities/product.dart';
-import 'package:flutter_visualizador_de_precos/fuck-ddd/domain/product/repositories/i_product_repository.dart';
-import 'package:flutter_visualizador_de_precos/fuck-ddd/domain/product/value_objects/barcode.dart';
+import 'package:flutter_visualizador_de_precos/domain/core/failures.dart';
+import 'package:flutter_visualizador_de_precos/domain/product/entities/product.dart';
+import 'package:flutter_visualizador_de_precos/domain/product/repositories/i_product_repository.dart';
+import 'package:flutter_visualizador_de_precos/domain/product/value_objects/barcode.dart';
 
 import '../datasources/product_datasource.dart';
 import '../datasources/stock_datasource.dart';

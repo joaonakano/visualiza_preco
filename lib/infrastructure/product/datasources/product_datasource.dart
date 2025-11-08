@@ -1,4 +1,4 @@
-import 'package:flutter_visualizador_de_precos/fuck-ddd/domain/product/entities/product.dart';
+import 'package:flutter_visualizador_de_precos/domain/product/entities/product.dart';
 
 // interface do datasource (regras ou operacoes disponiveis)
 abstract class IProductDatasource {
