@@ -44,9 +44,40 @@ A primeira parte da entrega do segundo bimestre foi marcada pela refatoração d
 
 Na tela de produto, contaremos com as informações completas de um determinado item no estoque, contando com preços atuais, estoque disponível, descrições e gráficos de histórico. Abaixo, uma imagem que demonstra inicialmente essa funcionalidade.
 
-Para exemplificar a tela, utilizamos alguns dados da API Woah do Keanu Reeves, abaixo estão elencadas as principais informações utilizadas pelo aplicativo.
+Atualização (07/11/2025): Refatoramos inicialmente o estilo dessa tela, mantendo alguns elementos e descartando outros
 
 <p align="center">
-  <img src="assets/readme/3.png">
-  <img src="assets/readme/4.png">
+  <img src="assets/readme/9.png">
+</p>
+
+### Tela de Pesquisa por Produto
+
+Aqui será possível pesquisar por um código digitado ou escaneando através da câmera do dispositivo.
+
+<p align="center">
+  <img src="assets/readme/6.png">
+</p>
+
+### Utilização do DDD na Estrutura Principal
+
+Utilização do DDD no projeto principal, fora feita uma refatoração geral dos códigos para atender as demandas de arquitetura limpa.
+
+<p align="center">
+  <img src="assets/readme/7.png">
+</p>
+
+### Utilização de um Gerenciador de Estados Avançado - Provider
+
+Para melhor gerenciar os estados na arquitetura limpa, optamos por utilizar um Provider geral como controlador da instanciação e modificação de objetos.
+
+<p align="center">
+  <img src="assets/readme/8.png">
+</p>
+
+### Testes
+
+asdf
+
+<p align="center">
+  <img src="assets/readme/5.png">
 </p>
