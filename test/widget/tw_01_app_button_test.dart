@@ -6,7 +6,7 @@ import 'package:flutter_visualizador_de_precos/components/widgets/atoms/app_butt
 /// Verifica se o botao e renderizado e responde a cliques
 void main() {
   group('TW-01 - Widget AppButton', () {
-    testWidgets('Deve renderizar bot�o com texto correto', (WidgetTester tester) async {
+    testWidgets('Deve renderizar botão com texto correto', (WidgetTester tester) async {
       // Arrange (Preparacao)
       const String textoEsperado = 'Buscar Produto';
       bool foiClicado = false;
