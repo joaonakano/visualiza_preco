@@ -92,11 +92,7 @@ flutter test test/integration/
 
 ---
 
-##  O que foi removido?
--  `lib/utils/price_calculator.dart` - Classe não estava sendo usada no projeto
--  Testes baseados na API do Keanu Reeves (substituídos por testes reais)
 
----
 
 ##  Observações
 - Todos os testes agora usam **código real** do projeto
