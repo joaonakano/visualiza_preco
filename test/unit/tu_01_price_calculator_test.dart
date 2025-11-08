@@ -1,70 +1,38 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter_visualizador_de_precos/utils/price_calculator.dart';
+import 'package:flutter_visualizador_de_precos/domain/product/value_objects/barcode.dart';
 
-/// TU-01: Teste de cálculo de desconto em preço
-/// Verifica se o cálculo de desconto está correto
+/// TU-01: Teste Unitário - Validação de Código de Barras
+/// Verifica se a validação de barcode funciona corretamente
 void main() {
-  group('TU-01 - Teste de Cálculo de Desconto', () {
-    test('Deve calcular desconto de 10% corretamente', () {
+  group('TU-01 - Validação de Barcode', () {
+    test('Deve criar barcode válido com números', () {
       // Arrange (Preparação)
-      const double precoOriginal = 100.0;
-      const double percentualDesconto = 10.0;
-      const double precoEsperado = 90.0;
+      const String codigoValido = '7891000100103';
 
       // Act (Execução)
-      final double resultado = PriceCalculator.calculateDiscount(
-        precoOriginal,
-        percentualDesconto,
-      );
+      final resultado = Barcode.create(codigoValido);
 
       // Assert (Verificação)
-      expect(resultado, equals(precoEsperado));
-    });
-
-    test('Deve calcular desconto de 50% corretamente', () {
-      
-      const double precoOriginal = 200.0;
-      const double percentualDesconto = 50.0;
-      const double precoEsperado = 100.0;
-
-    
-      final double resultado = PriceCalculator.calculateDiscount(
-        precoOriginal,
-        percentualDesconto,
+      resultado.fold(
+        (failure) => fail('Não deveria falhar com código válido'),
+        (barcode) {
+          expect(barcode.value, equals(codigoValido));
+          expect(barcode.toString(), equals(codigoValido));
+        },
       );
-
-   
-      expect(resultado, equals(precoEsperado));
     });
 
-    test('Deve lançar exceção para preço negativo', () {
+    test('Deve rejeitar barcode vazio', () {
       // Arrange
-      const double precoOriginal = -10.0;
-      const double percentualDesconto = 10.0;
+      const String codigoVazio = '';
 
-      // Act & Assert
-      expect(
-        () => PriceCalculator.calculateDiscount(
-          precoOriginal,
-          percentualDesconto,
-        ),
-        throwsArgumentError,
-      );
-    });
+      // Act
+      final resultado = Barcode.create(codigoVazio);
 
-    test('Deve lançar exceção para desconto maior que 100%', () {
-   
-      const double precoOriginal = 100.0;
-      const double percentualDesconto = 150.0;
-
-     
-      expect(
-        () => PriceCalculator.calculateDiscount(
-          precoOriginal,
-          percentualDesconto,
-        ),
-        throwsArgumentError,
-      );
+      // Assert
+      resultado.fold((failure) {
+        expect(failure.message, contains('não pode estar vazio'));
+      }, (barcode) => fail('Deveria ter falhado com código vazio'));
     });
   });
 }
