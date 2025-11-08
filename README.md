@@ -10,7 +10,7 @@ Para executar, basta utilizar o comando ``flutter run -d windows``, ou somente `
 
 ## Atualizações
 
-### Segunda Parte da Entrega (05/09/2025)
+### 📕 Segunda Parte da Entrega (05/09/2025)
 Para complementar a construção do aplicativo, utilizamos o modelo Atomic Design que visa atomizar o layout de uma página através de componentes indivisíveis que, juntos, formam outras estruturas mais complexas. As páginas do aplicativo foram substituídas para se encaixar melhor no padrão do Atomic Design.
 
 Similarmente, o uso de comentários mais pertinentes e uma validação de formulários foi implementada nessa segunda etapa.
@@ -19,7 +19,9 @@ Além disso, parte do layout foi simplificado para garantir uma melhor fluidez e
 
 Concluindo, foi utilizada uma API pública para capturar e tratar os dados dentro do sistema, a fim de treinar e consolidar o aprendizado de sala de aula. O link para a API se encontra em https://whoa.onrender.com/
 
-### Primeira Parte da Entrega 2 (07/11/2025)
+---
+
+### 📗 Primeira Parte da Entrega 2 (07/11/2025)
 A primeira parte da entrega do segundo bimestre foi marcada pela refatoração de código. Nós portamos toda a seção de produtos no padrão DDD, ou Domain-Driven Design, para seguir as boas práticas. Além disso, implementamos a busca por código de barras via câmera do dispositivo e também teclado. Entre outras entregas, realizamos toda a portabilidade do gerenciamento de estados com o Provider do Flutter e implementamos testes automatizados de componente/wiget e os testes unitários.
 
 ## Entregas
