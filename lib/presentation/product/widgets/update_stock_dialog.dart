@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
 import '../../../components/constants/app_colors.dart';
 import '../../../components/widgets/atoms/app_button.dart';
 
@@ -49,10 +50,7 @@ class _UpdateStockDialogState extends State<UpdateStockDialog> {
     return AlertDialog(
       title: const Text(
         'Alterar Quantidade em Estoque',
-        style: TextStyle(
-          fontSize: 20,
-          fontWeight: FontWeight.bold,
-        ),
+        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
       ),
       content: Form(
         key: _formKey,
@@ -65,18 +63,13 @@ class _UpdateStockDialogState extends State<UpdateStockDialog> {
                 padding: const EdgeInsets.only(bottom: 16.0),
                 child: Text(
                   'Quantidade atual: ${widget.currentStock} unidades',
-                  style: const TextStyle(
-                    fontSize: 14,
-                    color: Colors.grey,
-                  ),
+                  style: const TextStyle(fontSize: 14, color: Colors.grey),
                 ),
               ),
             TextFormField(
               controller: _stockController,
               keyboardType: TextInputType.number,
-              inputFormatters: [
-                FilteringTextInputFormatter.digitsOnly,
-              ],
+              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
               decoration: InputDecoration(
                 labelText: 'Nova Quantidade',
                 hintText: '0',
@@ -111,15 +104,9 @@ class _UpdateStockDialogState extends State<UpdateStockDialog> {
       actions: [
         TextButton(
           onPressed: () => Navigator.of(context).pop(),
-          child: const Text(
-            'Cancelar',
-            style: TextStyle(color: Colors.grey),
-          ),
+          child: const Text('Cancelar', style: TextStyle(color: Colors.grey)),
         ),
-        AppButton(
-          label: 'Confirmar',
-          onPressed: _submit,
-        ),
+        AppButton(label: 'Confirmar', onPressed: _submit),
       ],
     );
   }

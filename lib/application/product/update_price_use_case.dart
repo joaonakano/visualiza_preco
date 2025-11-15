@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+
 import '../../domain/core/failures.dart';
 import '../../domain/product/entities/product.dart';
 import '../../domain/product/repositories/i_product_repository.dart';

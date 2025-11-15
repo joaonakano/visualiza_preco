@@ -89,10 +89,10 @@ class StockDatasource {
     if (_fakeDatabase.containsKey(barcode)) {
       final currentStock = _fakeDatabase[barcode]!['stockQuantity'] as int;
       final newStock = currentStock + adjustment;
-      
+
       // Não permite estoque negativo
       if (newStock < 0) return false;
-      
+
       _fakeDatabase[barcode]!['stockQuantity'] = newStock;
       return true;
     }

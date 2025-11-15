@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+
 import '../../core/failures.dart';
 
 /// Value Object para Password
@@ -12,11 +13,11 @@ class Password {
     if (input.isEmpty) {
       return left(const ValueFailure('Senha não pode estar vazia'));
     }
-    
+
     if (input.length < 6) {
       return left(const ValueFailure('Senha deve ter no mínimo 6 caracteres'));
     }
-    
+
     return right(Password._(input));
   }
 

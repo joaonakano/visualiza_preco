@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+
 import '../../domain/core/failures.dart';
 import '../../domain/product/entities/product.dart';
 import './get_product_use_case.dart';
@@ -19,10 +20,10 @@ class ProductService {
     required GetProductsUseCase getProductsUseCase,
     required UpdatePriceUseCase updatePriceUseCase,
     required UpdateStockUseCase updateStockUseCase,
-  })  : _getProductUseCase = getProductUseCase,
-        _getProductsUseCase = getProductsUseCase,
-        _updatePriceUseCase = updatePriceUseCase,
-        _updateStockUseCase = updateStockUseCase;
+  }) : _getProductUseCase = getProductUseCase,
+       _getProductsUseCase = getProductsUseCase,
+       _updatePriceUseCase = updatePriceUseCase,
+       _updateStockUseCase = updateStockUseCase;
 
   // metodo para obter um produto
   Future<Either<ProductFailure, Product>> getProduct(String barcode) {
@@ -30,7 +31,7 @@ class ProductService {
   }
 
   // PRECISA IMPLEMENTAR!!!!!!!!!
-  // metodo para obter varios produtos  
+  // metodo para obter varios produtos
   Future<Either<ProductFailure, List<Product>>> getProducts() {
     return _getProductsUseCase.call();
   }

@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+
 import '../../core/failures.dart';
 import '../entities/user.dart';
 import '../value_objects/email.dart';
@@ -6,7 +7,7 @@ import '../value_objects/password.dart';
 
 /// Failure específico para autenticação
 class AuthFailure extends Failure {
-  const AuthFailure(String message) : super(message);
+  const AuthFailure(super.message);
 }
 
 /// Interface do repositório de autenticação

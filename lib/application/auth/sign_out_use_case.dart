@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+
 import '../../domain/auth/repositories/i_auth_repository.dart';
 
 /// Use Case para fazer logout

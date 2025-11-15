@@ -105,9 +105,7 @@ class ProductRepositoryImpl implements IProductRepository {
       );
 
       if (!success) {
-        return left(
-          ProductFailure('Produto não encontrado no estoque'),
-        );
+        return left(ProductFailure('Produto não encontrado no estoque'));
       }
 
       // Busca o produto atualizado
@@ -131,9 +129,7 @@ class ProductRepositoryImpl implements IProductRepository {
       );
 
       if (!success) {
-        return left(
-          ProductFailure('Produto não encontrado no estoque'),
-        );
+        return left(ProductFailure('Produto não encontrado no estoque'));
       }
 
       // Busca o produto atualizado

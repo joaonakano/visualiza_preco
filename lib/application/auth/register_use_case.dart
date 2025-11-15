@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+
 import '../../domain/auth/entities/user.dart';
 import '../../domain/auth/repositories/i_auth_repository.dart';
 import '../../domain/auth/value_objects/email.dart';

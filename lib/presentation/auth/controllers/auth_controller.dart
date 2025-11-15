@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import '../../../domain/auth/entities/user.dart';
+
 import '../../../application/auth/register_use_case.dart';
 import '../../../application/auth/sign_in_use_case.dart';
 import '../../../application/auth/sign_out_use_case.dart';
+import '../../../domain/auth/entities/user.dart';
 
 /// Controller/Service para gerenciar autenticação
 class AuthController extends ChangeNotifier {
@@ -14,9 +15,9 @@ class AuthController extends ChangeNotifier {
     required SignInUseCase signInUseCase,
     required RegisterUseCase registerUseCase,
     required SignOutUseCase signOutUseCase,
-  })  : _signInUseCase = signInUseCase,
-        _registerUseCase = registerUseCase,
-        _signOutUseCase = signOutUseCase;
+  }) : _signInUseCase = signInUseCase,
+       _registerUseCase = registerUseCase,
+       _signOutUseCase = signOutUseCase;
 
   User? _user;
   bool _isLoading = false;
@@ -91,7 +92,7 @@ class AuthController extends ChangeNotifier {
     notifyListeners();
 
     await _signOutUseCase.call();
-    
+
     _user = null;
     _error = null;
     _isLoading = false;

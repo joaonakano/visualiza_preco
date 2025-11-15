@@ -6,17 +6,9 @@ class User {
   final Email email;
   final String? displayName;
 
-  const User({
-    required this.id,
-    required this.email,
-    this.displayName,
-  });
+  const User({required this.id, required this.email, this.displayName});
 
-  User copyWith({
-    String? id,
-    Email? email,
-    String? displayName,
-  }) {
+  User copyWith({String? id, Email? email, String? displayName}) {
     return User(
       id: id ?? this.id,
       email: email ?? this.email,
@@ -25,5 +17,6 @@ class User {
   }
 
   @override
-  String toString() => 'User(id: $id, email: ${email.value}, displayName: $displayName)';
+  String toString() =>
+      'User(id: $id, email: ${email.value}, displayName: $displayName)';
 }

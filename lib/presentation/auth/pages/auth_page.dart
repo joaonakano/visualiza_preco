@@ -4,6 +4,7 @@ import 'package:flutter_visualizador_de_precos/components/constants/app_text_sty
 import 'package:flutter_visualizador_de_precos/components/widgets/atoms/app_button.dart';
 import 'package:flutter_visualizador_de_precos/presentation/product/pages/product_scanner_page.dart';
 import 'package:provider/provider.dart';
+
 import '../controllers/auth_controller.dart';
 
 /// Tela de Login e Registro
@@ -19,7 +20,7 @@ class _AuthPageState extends State<AuthPage> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _displayNameController = TextEditingController();
-  
+
   bool _isLogin = true; // true = login, false = registro
   bool _obscurePassword = true;
 
@@ -55,9 +56,7 @@ class _AuthPageState extends State<AuthPage> {
     if (success && mounted) {
       // Navega para a tela principal
       Navigator.of(context).pushReplacement(
-        MaterialPageRoute(
-          builder: (context) => const ProductScannerPage(),
-        ),
+        MaterialPageRoute(builder: (context) => const ProductScannerPage()),
       );
     }
   }
@@ -100,21 +99,37 @@ class _AuthPageState extends State<AuthPage> {
                           controller: _displayNameController,
                           decoration: InputDecoration(
                             labelText: 'Nome (opcional)',
-                            labelStyle: TextStyle(color: AppColors.backgroundLight),
-                            prefixIcon: Icon(Icons.person, color: AppColors.backgroundLight),
+                            labelStyle: TextStyle(
+                              color: AppColors.backgroundLight,
+                            ),
+                            prefixIcon: Icon(
+                              Icons.person,
+                              color: AppColors.backgroundLight,
+                            ),
                             filled: true,
-                            fillColor: AppColors.backgroundLight.withOpacity(0.1),
+                            fillColor: AppColors.backgroundLight.withOpacity(
+                              0.1,
+                            ),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(12),
-                              borderSide: BorderSide(color: AppColors.backgroundLight),
+                              borderSide: BorderSide(
+                                color: AppColors.backgroundLight,
+                              ),
                             ),
                             enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(12),
-                              borderSide: BorderSide(color: AppColors.backgroundLight.withOpacity(0.3)),
+                              borderSide: BorderSide(
+                                color: AppColors.backgroundLight.withOpacity(
+                                  0.3,
+                                ),
+                              ),
                             ),
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(12),
-                              borderSide: BorderSide(color: AppColors.primaryBlue, width: 2),
+                              borderSide: BorderSide(
+                                color: AppColors.primaryBlue,
+                                width: 2,
+                              ),
                             ),
                           ),
                           style: TextStyle(color: AppColors.backgroundLight),
@@ -128,21 +143,33 @@ class _AuthPageState extends State<AuthPage> {
                         keyboardType: TextInputType.emailAddress,
                         decoration: InputDecoration(
                           labelText: 'Email',
-                          labelStyle: TextStyle(color: AppColors.backgroundLight),
-                          prefixIcon: Icon(Icons.email, color: AppColors.backgroundLight),
+                          labelStyle: TextStyle(
+                            color: AppColors.backgroundLight,
+                          ),
+                          prefixIcon: Icon(
+                            Icons.email,
+                            color: AppColors.backgroundLight,
+                          ),
                           filled: true,
                           fillColor: AppColors.backgroundLight.withOpacity(0.1),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12),
-                            borderSide: BorderSide(color: AppColors.backgroundLight),
+                            borderSide: BorderSide(
+                              color: AppColors.backgroundLight,
+                            ),
                           ),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12),
-                            borderSide: BorderSide(color: AppColors.backgroundLight.withOpacity(0.3)),
+                            borderSide: BorderSide(
+                              color: AppColors.backgroundLight.withOpacity(0.3),
+                            ),
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12),
-                            borderSide: BorderSide(color: AppColors.primaryBlue, width: 2),
+                            borderSide: BorderSide(
+                              color: AppColors.primaryBlue,
+                              width: 2,
+                            ),
                           ),
                         ),
                         style: TextStyle(color: AppColors.backgroundLight),
@@ -164,11 +191,18 @@ class _AuthPageState extends State<AuthPage> {
                         obscureText: _obscurePassword,
                         decoration: InputDecoration(
                           labelText: 'Senha',
-                          labelStyle: TextStyle(color: AppColors.backgroundLight),
-                          prefixIcon: Icon(Icons.lock, color: AppColors.backgroundLight),
+                          labelStyle: TextStyle(
+                            color: AppColors.backgroundLight,
+                          ),
+                          prefixIcon: Icon(
+                            Icons.lock,
+                            color: AppColors.backgroundLight,
+                          ),
                           suffixIcon: IconButton(
                             icon: Icon(
-                              _obscurePassword ? Icons.visibility : Icons.visibility_off,
+                              _obscurePassword
+                                  ? Icons.visibility
+                                  : Icons.visibility_off,
                               color: AppColors.backgroundLight,
                             ),
                             onPressed: () {
@@ -181,15 +215,22 @@ class _AuthPageState extends State<AuthPage> {
                           fillColor: AppColors.backgroundLight.withOpacity(0.1),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12),
-                            borderSide: BorderSide(color: AppColors.backgroundLight),
+                            borderSide: BorderSide(
+                              color: AppColors.backgroundLight,
+                            ),
                           ),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12),
-                            borderSide: BorderSide(color: AppColors.backgroundLight.withOpacity(0.3)),
+                            borderSide: BorderSide(
+                              color: AppColors.backgroundLight.withOpacity(0.3),
+                            ),
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12),
-                            borderSide: BorderSide(color: AppColors.primaryBlue, width: 2),
+                            borderSide: BorderSide(
+                              color: AppColors.primaryBlue,
+                              width: 2,
+                            ),
                           ),
                         ),
                         style: TextStyle(color: AppColors.backgroundLight),

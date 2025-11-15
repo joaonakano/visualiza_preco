@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../../../application/product/product_service.dart';
 import '../../../domain/product/entities/product.dart';
 
@@ -34,7 +35,7 @@ class ProductController extends ChangeNotifier {
       (product) {
         _product = product;
         _error = null;
-      }
+      },
     );
 
     _isLoading = false;
@@ -57,7 +58,7 @@ class ProductController extends ChangeNotifier {
       (products) {
         _products = products;
         _error = null;
-      }
+      },
     );
 
     _isLoading = false;

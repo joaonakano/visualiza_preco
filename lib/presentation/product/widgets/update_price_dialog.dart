@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
 import '../../../components/constants/app_colors.dart';
 import '../../../components/widgets/atoms/app_button.dart';
 
@@ -49,10 +50,7 @@ class _UpdatePriceDialogState extends State<UpdatePriceDialog> {
     return AlertDialog(
       title: const Text(
         'Alterar Preço de Venda',
-        style: TextStyle(
-          fontSize: 20,
-          fontWeight: FontWeight.bold,
-        ),
+        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
       ),
       content: Form(
         key: _formKey,
@@ -65,15 +63,14 @@ class _UpdatePriceDialogState extends State<UpdatePriceDialog> {
                 padding: const EdgeInsets.only(bottom: 16.0),
                 child: Text(
                   'Preço atual: R\$ ${widget.currentPrice!.toStringAsFixed(2)}',
-                  style: const TextStyle(
-                    fontSize: 14,
-                    color: Colors.grey,
-                  ),
+                  style: const TextStyle(fontSize: 14, color: Colors.grey),
                 ),
               ),
             TextFormField(
               controller: _priceController,
-              keyboardType: const TextInputType.numberWithOptions(decimal: true),
+              keyboardType: const TextInputType.numberWithOptions(
+                decimal: true,
+              ),
               inputFormatters: [
                 FilteringTextInputFormatter.allow(RegExp(r'^\d+[,.]?\d{0,2}')),
               ],
@@ -111,15 +108,9 @@ class _UpdatePriceDialogState extends State<UpdatePriceDialog> {
       actions: [
         TextButton(
           onPressed: () => Navigator.of(context).pop(),
-          child: const Text(
-            'Cancelar',
-            style: TextStyle(color: Colors.grey),
-          ),
+          child: const Text('Cancelar', style: TextStyle(color: Colors.grey)),
         ),
-        AppButton(
-          label: 'Confirmar',
-          onPressed: _submit,
-        ),
+        AppButton(label: 'Confirmar', onPressed: _submit),
       ],
     );
   }

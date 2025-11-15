@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase;
+
 import '../../../domain/auth/entities/user.dart' as domain;
 import '../../../domain/auth/repositories/i_auth_repository.dart';
 import '../../../domain/auth/value_objects/email.dart';
@@ -83,7 +84,7 @@ class FirebaseAuthRepository implements IAuthRepository {
       if (firebaseUser == null) {
         return right(null);
       }
-      
+
       final user = _mapFirebaseUserToDomain(firebaseUser);
       return right(user);
     } catch (e) {
@@ -102,7 +103,7 @@ class FirebaseAuthRepository implements IAuthRepository {
   /// Mapeia um FirebaseUser para User do domínio
   domain.User _mapFirebaseUserToDomain(firebase.User firebaseUser) {
     final emailOrFailure = Email.create(firebaseUser.email ?? '');
-    
+
     return emailOrFailure.fold(
       (failure) => throw Exception('Email inválido do Firebase'),
       (email) => domain.User(

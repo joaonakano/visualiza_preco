@@ -287,9 +287,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
             } else {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                  content: Text(
-                    controller.error ?? 'Erro ao atualizar preço',
-                  ),
+                  content: Text(controller.error ?? 'Erro ao atualizar preço'),
                   backgroundColor: AppColors.error,
                 ),
               );
