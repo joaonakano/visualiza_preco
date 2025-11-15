@@ -63,4 +63,58 @@ class ProductController extends ChangeNotifier {
     _isLoading = false;
     notifyListeners();
   }
+
+  /// Atualiza o preço de venda de um produto
+  Future<bool> updatePrice(String barcode, double newPrice) async {
+    _isLoading = true;
+    _error = null;
+    notifyListeners();
+
+    final result = await _productService.updatePrice(barcode, newPrice);
+
+    result.fold(
+      (failure) {
+        _error = failure.message;
+        _isLoading = false;
+        notifyListeners();
+        return false;
+      },
+      (updatedProduct) {
+        _product = updatedProduct;
+        _error = null;
+        _isLoading = false;
+        notifyListeners();
+        return true;
+      },
+    );
+
+    return result.isRight();
+  }
+
+  /// Atualiza a quantidade em estoque de um produto
+  Future<bool> updateStock(String barcode, int newQuantity) async {
+    _isLoading = true;
+    _error = null;
+    notifyListeners();
+
+    final result = await _productService.updateStock(barcode, newQuantity);
+
+    result.fold(
+      (failure) {
+        _error = failure.message;
+        _isLoading = false;
+        notifyListeners();
+        return false;
+      },
+      (updatedProduct) {
+        _product = updatedProduct;
+        _error = null;
+        _isLoading = false;
+        notifyListeners();
+        return true;
+      },
+    );
+
+    return result.isRight();
+  }
 }

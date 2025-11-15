@@ -59,4 +59,43 @@ class StockDatasource {
       return {'barcode': entry.key, ...entry.value};
     }).toList();
   }
+
+  /// Atualiza o preço de venda de um produto
+  Future<bool> updatePrice(String barcode, double newPrice) async {
+    await Future.delayed(const Duration(milliseconds: 300));
+
+    if (_fakeDatabase.containsKey(barcode)) {
+      _fakeDatabase[barcode]!['price'] = newPrice;
+      return true;
+    }
+    return false;
+  }
+
+  /// Atualiza a quantidade em estoque de um produto
+  Future<bool> updateStock(String barcode, int newQuantity) async {
+    await Future.delayed(const Duration(milliseconds: 300));
+
+    if (_fakeDatabase.containsKey(barcode)) {
+      _fakeDatabase[barcode]!['stockQuantity'] = newQuantity;
+      return true;
+    }
+    return false;
+  }
+
+  /// Incrementa ou decrementa a quantidade em estoque
+  Future<bool> adjustStock(String barcode, int adjustment) async {
+    await Future.delayed(const Duration(milliseconds: 300));
+
+    if (_fakeDatabase.containsKey(barcode)) {
+      final currentStock = _fakeDatabase[barcode]!['stockQuantity'] as int;
+      final newStock = currentStock + adjustment;
+      
+      // Não permite estoque negativo
+      if (newStock < 0) return false;
+      
+      _fakeDatabase[barcode]!['stockQuantity'] = newStock;
+      return true;
+    }
+    return false;
+  }
 }

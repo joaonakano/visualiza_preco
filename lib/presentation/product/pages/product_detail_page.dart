@@ -6,6 +6,8 @@ import 'package:provider/provider.dart';
 
 import '../../../domain/product/entities/product.dart';
 import '../controllers/product_controller.dart';
+import '../widgets/update_price_dialog.dart';
+import '../widgets/update_stock_dialog.dart';
 
 class ProductDetailPage extends StatefulWidget {
   final String barcode;
@@ -208,7 +210,129 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
               icon: Icons.inventory,
               valueColor: AppColors.primaryBlue,
             ),
+
+          const SizedBox(height: 24),
+
+          // Botões de ação (apenas se o produto está no estoque local)
+          if (product.price != null || product.stockQuantity != null)
+            Column(
+              children: [
+                // Botão para alterar preço
+                if (product.price != null)
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton.icon(
+                      onPressed: () => _showUpdatePriceDialog(product),
+                      icon: const Icon(Icons.edit),
+                      label: const Text('Alterar Preço de Venda'),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: AppColors.success,
+                        foregroundColor: Colors.white,
+                        padding: const EdgeInsets.symmetric(vertical: 16),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                      ),
+                    ),
+                  ),
+
+                const SizedBox(height: 12),
+
+                // Botão para alterar estoque
+                if (product.stockQuantity != null)
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton.icon(
+                      onPressed: () => _showUpdateStockDialog(product),
+                      icon: const Icon(Icons.inventory_2),
+                      label: const Text('Alterar Quantidade em Estoque'),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: AppColors.primaryBlue,
+                        foregroundColor: Colors.white,
+                        padding: const EdgeInsets.symmetric(vertical: 16),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                      ),
+                    ),
+                  ),
+              ],
+            ),
         ],
+      ),
+    );
+  }
+
+  /// Mostra o diálogo para atualizar o preço
+  void _showUpdatePriceDialog(Product product) {
+    showDialog(
+      context: context,
+      builder: (context) => UpdatePriceDialog(
+        currentPrice: product.price,
+        onConfirm: (newPrice) async {
+          final controller = context.read<ProductController>();
+          final success = await controller.updatePrice(
+            product.barcode.value,
+            newPrice,
+          );
+
+          if (mounted) {
+            if (success) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text('Preço atualizado com sucesso!'),
+                  backgroundColor: AppColors.success,
+                ),
+              );
+            } else {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(
+                    controller.error ?? 'Erro ao atualizar preço',
+                  ),
+                  backgroundColor: AppColors.error,
+                ),
+              );
+            }
+          }
+        },
+      ),
+    );
+  }
+
+  /// Mostra o diálogo para atualizar o estoque
+  void _showUpdateStockDialog(Product product) {
+    showDialog(
+      context: context,
+      builder: (context) => UpdateStockDialog(
+        currentStock: product.stockQuantity,
+        onConfirm: (newQuantity) async {
+          final controller = context.read<ProductController>();
+          final success = await controller.updateStock(
+            product.barcode.value,
+            newQuantity,
+          );
+
+          if (mounted) {
+            if (success) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text('Estoque atualizado com sucesso!'),
+                  backgroundColor: AppColors.success,
+                ),
+              );
+            } else {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(
+                    controller.error ?? 'Erro ao atualizar estoque',
+                  ),
+                  backgroundColor: AppColors.error,
+                ),
+              );
+            }
+          }
+        },
       ),
     );
   }

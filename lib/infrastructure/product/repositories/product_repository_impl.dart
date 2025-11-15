@@ -90,4 +90,56 @@ class ProductRepositoryImpl implements IProductRepository {
       return left(ProductFailure(e.toString()));
     }
   }
+
+  // Atualiza o preço de venda de um produto
+  @override
+  Future<Either<ProductFailure, Product>> updatePrice(
+    Barcode barcode,
+    double newPrice,
+  ) async {
+    try {
+      // Atualiza o preço no datasource local
+      final success = await _stockDatasource.updatePrice(
+        barcode.value,
+        newPrice,
+      );
+
+      if (!success) {
+        return left(
+          ProductFailure('Produto não encontrado no estoque'),
+        );
+      }
+
+      // Busca o produto atualizado
+      return await getByBarcode(barcode);
+    } catch (e) {
+      return left(ProductFailure(e.toString()));
+    }
+  }
+
+  // Atualiza a quantidade em estoque de um produto
+  @override
+  Future<Either<ProductFailure, Product>> updateStock(
+    Barcode barcode,
+    int newQuantity,
+  ) async {
+    try {
+      // Atualiza o estoque no datasource local
+      final success = await _stockDatasource.updateStock(
+        barcode.value,
+        newQuantity,
+      );
+
+      if (!success) {
+        return left(
+          ProductFailure('Produto não encontrado no estoque'),
+        );
+      }
+
+      // Busca o produto atualizado
+      return await getByBarcode(barcode);
+    } catch (e) {
+      return left(ProductFailure(e.toString()));
+    }
+  }
 }
