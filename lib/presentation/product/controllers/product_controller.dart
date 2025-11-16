@@ -42,8 +42,8 @@ class ProductController extends ChangeNotifier {
     notifyListeners();
   }
 
-  // PRECISA IMPLEMENTAR!!!!!
-  Future<void> getProducts({int page = 1}) async {
+  // pegar produtos aleatorios
+  Future<void> getProducts() async {
     _isLoading = true;
     _error = null;
     notifyListeners();

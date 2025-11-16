@@ -30,8 +30,6 @@ class ProductService {
     return _getProductUseCase.call(barcode);
   }
 
-  // PRECISA IMPLEMENTAR!!!!!!!!!
-  // metodo para obter varios produtos
   Future<Either<ProductFailure, List<Product>>> getProducts() {
     return _getProductsUseCase.call();
   }

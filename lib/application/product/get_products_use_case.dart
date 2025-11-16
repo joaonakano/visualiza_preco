@@ -3,7 +3,6 @@ import '../../domain/core/failures.dart';
 import '../../domain/product/entities/product.dart';
 import '../../domain/product/repositories/i_product_repository.dart';
 
-// PRECISA IMPLEMENTAR ISSO DPS!!!!!
 // caso de uso para obter todos os produtos
 class GetProductsUseCase {
   // interface dos casos de uso
@@ -12,6 +11,11 @@ class GetProductsUseCase {
   GetProductsUseCase(this._repository);
 
   Future<Either<ProductFailure, List<Product>>> call() async {
-    return _repository.getAll();
+    try {
+      final products = await _repository.getProducts();
+      return Right(products);
+    } catch (_) {
+      return Left(ProductFailure("Erro ao obter lista de produtos"));
+    }
   }
 }

@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_visualizador_de_precos/presentation/product/pages/dashboard_page.dart';
 import 'package:flutter_visualizador_de_precos/presentation/product/pages/product_scanner_page.dart';
 import 'package:provider/provider.dart';
 
@@ -87,9 +88,9 @@ class MyApp extends StatelessWidget {
       title: 'Visualizador de Preços',
       home: Consumer<AuthController>(
         builder: (context, authController, _) {
-          // Se estiver autenticado, vai para o scanner
+          // Se estiver autenticado, vai para a tela inicial
           if (authController.isAuthenticated) {
-            return const ProductScannerPage();
+            return const DashboardPage();
           }
           // Senão, vai para a tela de login
           return const AuthPage();

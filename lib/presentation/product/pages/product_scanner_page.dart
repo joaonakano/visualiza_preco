@@ -1,4 +1,3 @@
-// lib/fuck-ddd/presentation/product/pages/product_scanner_page.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_visualizador_de_precos/components/constants/app_colors.dart';
 import 'package:flutter_visualizador_de_precos/components/constants/app_text_styles.dart';

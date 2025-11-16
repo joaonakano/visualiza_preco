@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_visualizador_de_precos/components/constants/app_colors.dart';
 import 'package:flutter_visualizador_de_precos/components/constants/app_text_styles.dart';
 import 'package:flutter_visualizador_de_precos/components/widgets/atoms/app_button.dart';
+import 'package:flutter_visualizador_de_precos/presentation/product/pages/dashboard_page.dart';
 import 'package:flutter_visualizador_de_precos/presentation/product/pages/product_scanner_page.dart';
 import 'package:provider/provider.dart';
 
@@ -56,7 +57,7 @@ class _AuthPageState extends State<AuthPage> {
     if (success && mounted) {
       // Navega para a tela principal
       Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => const ProductScannerPage()),
+        MaterialPageRoute(builder: (context) => const DashboardPage()),
       );
     }
   }

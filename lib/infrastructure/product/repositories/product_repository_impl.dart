@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:dartz/dartz.dart';
 import 'package:flutter_visualizador_de_precos/domain/core/failures.dart';
 import 'package:flutter_visualizador_de_precos/domain/product/entities/product.dart';
@@ -15,7 +17,7 @@ class ProductRepositoryImpl implements IProductRepository {
 
   ProductRepositoryImpl(this._datasource, this._stockDatasource);
 
-  // fetch de produto por codigo de barras
+  // (1) fetch de produto por codigo de barras
   @override
   Future<Either<ProductFailure, Product>> getByBarcode(Barcode barcode) async {
     late Map<String, dynamic> productData;
@@ -57,41 +59,18 @@ class ProductRepositoryImpl implements IProductRepository {
     );
   }
 
-  // fetch de todos os produtos
+  // (2) busca por uma lista de produtos
   @override
-  Future<Either<ProductFailure, List<Product>>> getAll() async {
-    try {
-      final productsData = await _datasource.getAllProducts();
-      final products = productsData.map((data) {
-        final barcodeOrFailure = Barcode.create(
-          data['code'] ?? '',
-        ); // cria o codigo de barras com validação
-        return barcodeOrFailure.fold(
-          (failure) => throw Exception(
-            failure.message,
-          ), // se falhar, retorna uma mensagem de erro
-          (barcode) => Product(
-            // se der certo, cria uma instancia do produto
-            barcode: barcode,
-            name: data['product_name'] ?? 'Nome não informado',
-            brand: data['brands'],
-            imageUrl: data['image_url'],
-            price: null,
-            costPrice: null,
-            stockQuantity: null,
-          ),
-        );
-      }).toList();
+  Future<List<Product>> getProducts() async {
+    final dtoList = await _datasource.getProducts();
 
-      // retorna toda a lista de produtos
-      return right(products);
-    } catch (e) {
-      // retorna uma falha se nao conseguir
-      return left(ProductFailure(e.toString()));
-    }
+    return dtoList
+      .map((dto) => dto.toDomain())
+      .where((p) => p.barcode.value != "0") // filtra produtos com barcode inválido
+      .toList();
   }
 
-  // Atualiza o preço de venda de um produto
+  // (3) atualiza o preço de venda de um produto
   @override
   Future<Either<ProductFailure, Product>> updatePrice(
     Barcode barcode,
