@@ -73,7 +73,9 @@ class _ProductPageState extends State<ProductPage> {
 
   Widget _buildBody(ProductController controller) {
     if (controller.isLoading && controller.products.isEmpty) {
-      return const Center(child: CircularProgressIndicator());
+      return const Center(
+        child: CircularProgressIndicator(color: Colors.green),
+      );
     }
 
     if (controller.error != null && controller.products.isEmpty) {
@@ -83,10 +85,17 @@ class _ProductPageState extends State<ProductPage> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text(controller.error!, textAlign: TextAlign.center),
+              Text(
+                controller.error!,
+                textAlign: TextAlign.center,
+                style: const TextStyle(color: Colors.white),
+              ),
               const SizedBox(height: 12),
               ElevatedButton(
                 onPressed: controller.getProducts,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.green[700],
+                ),
                 child: const Text('Tentar novamente'),
               ),
             ],
@@ -98,31 +107,70 @@ class _ProductPageState extends State<ProductPage> {
     final items = _query.isEmpty ? controller.products : _filtered;
 
     if (items.isEmpty) {
-      return const Center(child: Text('Nenhum produto encontrado.'));
+      return Center(
+        child: Text(
+          'Nenhum produto encontrado.',
+          style: TextStyle(color: Colors.grey[400], fontSize: 16),
+        ),
+      );
     }
 
     return RefreshIndicator(
       onRefresh: _refresh,
+      color: Colors.green,
       child: ListView.separated(
         padding: const EdgeInsets.symmetric(vertical: 8),
         itemCount: items.length,
-        separatorBuilder: (_, __) => const Divider(height: 1),
+        separatorBuilder: (_, __) => Divider(height: 1, color: Colors.grey[800]),
         itemBuilder: (context, index) {
           final p = items[index];
-          return ListTile(
-            leading: p.imageUrl != null
-                ? Image.network(p.imageUrl!, width: 56, height: 56, fit: BoxFit.cover)
-                : const SizedBox(width: 56, height: 56),
-            title: Text(p.name),
-            subtitle: Text(p.brand ?? ''),
-            trailing: const Icon(Icons.chevron_right),
-            onTap: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => ProductDetailPage(barcode: p.barcode.value),
+          return Container(
+            color: Colors.grey[900],
+            child: ListTile(
+              leading: Container(
+                width: 56,
+                height: 56,
+                decoration: BoxDecoration(
+                  color: Colors.grey[850],
+                  borderRadius: BorderRadius.circular(4),
                 ),
-              );
-            },
+                child: p.imageUrl != null
+                    ? ClipRRect(
+                        borderRadius: BorderRadius.circular(4),
+                        child: Image.network(
+                          p.imageUrl!,
+                          width: 56,
+                          height: 56,
+                          fit: BoxFit.cover,
+                          errorBuilder: (_, __, ___) => Icon(
+                            Icons.image_not_supported,
+                            color: Colors.grey[600],
+                          ),
+                        ),
+                      )
+                    : Icon(Icons.inventory_2, color: Colors.grey[600]),
+              ),
+              title: Text(
+                p.name,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              subtitle: Text(
+                p.brand ?? 'Sem marca',
+                style: TextStyle(color: Colors.grey[400]),
+              ),
+              trailing: Icon(Icons.chevron_right, color: Colors.grey[600]),
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        ProductDetailPage(barcode: p.barcode.value),
+                  ),
+                );
+              },
+            ),
           );
         },
       ),
@@ -133,8 +181,14 @@ class _ProductPageState extends State<ProductPage> {
   Widget build(BuildContext context) {
     // Use Consumer to rebuild only the body when controller changes
     return Scaffold(
+      backgroundColor: Colors.black,
       appBar: AppBar(
-        title: const Text('Produtos'),
+        backgroundColor: Colors.grey[900],
+        title: const Text(
+          'Produtos',
+          style: TextStyle(color: Colors.white),
+        ),
+        iconTheme: const IconThemeData(color: Colors.white),
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(56),
           child: Padding(
@@ -145,18 +199,21 @@ class _ProductPageState extends State<ProductPage> {
                   child: TextField(
                     controller: _searchController,
                     textInputAction: TextInputAction.search,
+                    style: const TextStyle(color: Colors.white),
                     decoration: InputDecoration(
                       hintText: 'Pesquisar produtos (nome, marca, código)',
+                      hintStyle: TextStyle(color: Colors.grey[500]),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8),
                         borderSide: BorderSide.none,
                       ),
                       filled: true,
+                      fillColor: Colors.grey[850],
                       contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
-                      prefixIcon: const Icon(Icons.search),
+                      prefixIcon: Icon(Icons.search, color: Colors.grey[400]),
                       suffixIcon: _query.isNotEmpty
                           ? IconButton(
-                              icon: const Icon(Icons.clear),
+                              icon: Icon(Icons.clear, color: Colors.grey[400]),
                               onPressed: () {
                                 _searchController.clear();
                                 // filtered reset will happen by listener
@@ -175,7 +232,7 @@ class _ProductPageState extends State<ProductPage> {
                 const SizedBox(width: 8),
                 IconButton(
                   tooltip: 'Recarregar',
-                  icon: const Icon(Icons.refresh),
+                  icon: const Icon(Icons.refresh, color: Colors.white),
                   onPressed: () async {
                     await _refresh();
                   },
@@ -199,7 +256,8 @@ class _ProductPageState extends State<ProductPage> {
       floatingActionButton: _query.isNotEmpty
           ? FloatingActionButton(
               tooltip: 'Limpar pesquisa',
-              child: const Icon(Icons.close),
+              backgroundColor: Colors.green[700],
+              child: const Icon(Icons.close, color: Colors.white),
               onPressed: () {
                 _searchController.clear();
               },

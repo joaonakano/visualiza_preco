@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_visualizador_de_precos/components/constants/app_colors.dart';
-import 'package:flutter_visualizador_de_precos/components/constants/app_text_styles.dart';
-import 'package:flutter_visualizador_de_precos/components/widgets/molecules/app_bar_widget.dart';
-import 'package:mobile_scanner/mobile_scanner.dart';
+import 'package:flutter_visualizador_de_precos/components/widgets/atoms/app_button.dart';
 import 'package:provider/provider.dart';
 
 import '../controllers/product_controller.dart';
@@ -17,7 +14,15 @@ class ProductScannerPage extends StatefulWidget {
 
 class _ProductScannerPageState extends State<ProductScannerPage> {
   final TextEditingController _barcodeController = TextEditingController();
-  bool _isProcessing = false;
+
+  @override
+  void initState() {
+    super.initState();
+    // Carrega todos os produtos ao iniciar
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<ProductController>().getProducts();
+    });
+  }
 
   @override
   void dispose() {
@@ -25,300 +30,269 @@ class _ProductScannerPageState extends State<ProductScannerPage> {
     super.dispose();
   }
 
-  void _startScan() {
-    bool scanProcessing = false;
-
-    showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      backgroundColor: Colors.black,
-      builder: (ctx) {
-        return SizedBox(
-          height: MediaQuery.of(context).size.height,
-          child: Stack(
-            children: [
-              MobileScanner(
-                onDetect: (capture) {
-                  if (scanProcessing) return;
-
-                  final String? code = capture.barcodes.first.rawValue;
-                  if (code != null) {
-                    scanProcessing = true;
-                    Navigator.of(ctx).pop();
-                    _handleBarcode(code);
-                  }
-                },
-              ),
-              Positioned(
-                top: 50,
-                left: 20,
-                child: IconButton(
-                  icon: const Icon(Icons.close, color: Colors.white, size: 30),
-                  onPressed: () => Navigator.of(ctx).pop(),
-                  tooltip: 'Fechar Scanner',
-                ),
-              ),
-            ],
-          ),
-        );
-      },
-    );
-  }
-
-  void _showManualInputDialog() {
-    _barcodeController.clear();
-
-    showDialog(
-      context: context,
-      builder: (ctx) => AlertDialog(
-        backgroundColor: AppColors.backgroundLight,
-        title: Text(
-          'Buscar Produto',
-          style: TextStyles.title.copyWith(
-            color: AppColors.textDark,
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-          ),
+  void _searchProduct() async {
+    final barcode = _barcodeController.text.trim();
+    if (barcode.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Por favor, digite um código de barras'),
+          backgroundColor: Colors.red,
         ),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Digite o código de barras:',
-              style: TextStyles.label.copyWith(
-                color: AppColors.textDark.withOpacity(0.7),
-                fontSize: 14,
-              ),
-            ),
-            const SizedBox(height: 12),
-            TextField(
-              controller: _barcodeController,
-              keyboardType: TextInputType.number,
-              autofocus: true,
-              style: TextStyles.label.copyWith(
-                color: AppColors.textDark,
-                fontSize: 16,
-                fontWeight: FontWeight.w500,
-              ),
-              decoration: InputDecoration(
-                hintText: 'Ex: 7894900011517',
-                hintStyle: TextStyles.label.copyWith(
-                  color: AppColors.textDark.withOpacity(0.4),
-                ),
-                filled: true,
-                fillColor: Colors.grey[200],
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12),
-                  borderSide: BorderSide(
-                    color: AppColors.primaryBlue,
-                    width: 2,
-                  ),
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12),
-                  borderSide: BorderSide(color: Colors.grey[400]!, width: 1.5),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12),
-                  borderSide: BorderSide(
-                    color: AppColors.primaryBlue,
-                    width: 2,
-                  ),
-                ),
-                contentPadding: const EdgeInsets.symmetric(
-                  horizontal: 16,
-                  vertical: 14,
-                ),
-              ),
-            ),
-          ],
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(ctx).pop(),
-            child: Text(
-              'Cancelar',
-              style: TextStyles.label.copyWith(
-                color: AppColors.textDark.withOpacity(0.6),
-                fontSize: 16,
-              ),
-            ),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              final barcode = _barcodeController.text.trim();
-              if (barcode.isNotEmpty) {
-                Navigator.of(ctx).pop();
-                _handleBarcode(barcode);
-              }
-            },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: AppColors.primaryBlue,
-              foregroundColor: Colors.white,
-              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
-              ),
-              elevation: 2,
-            ),
-            child: Text(
-              'Buscar',
-              style: TextStyles.label.copyWith(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-                fontSize: 16,
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  void _handleBarcode(String barcode) {
-    setState(() {
-      _isProcessing = true;
-    });
+      );
+      return;
+    }
 
     final controller = context.read<ProductController>();
-    controller.getProduct(barcode).then((_) {
-      setState(() {
-        _isProcessing = false;
-      });
+    await controller.getProduct(barcode);
 
-      if (controller.error != null) {
-        _showErrorDialog("Erro ao buscar produto: ${controller.error}");
-      } else if (controller.product != null) {
-        // Navega para a tela de detalhes
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => ProductDetailPage(barcode: barcode),
-          ),
-        );
-      }
-    });
-  }
-
-  void _showErrorDialog(String message) {
-    showDialog(
-      context: context,
-      builder: (ctx) => AlertDialog(
-        backgroundColor: AppColors.backgroundLight,
-        title: Text(
-          "Erro",
-          style: TextStyles.title.copyWith(
-            color: AppColors.error,
-            fontSize: 20,
-          ),
+    if (mounted && controller.product != null) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (_) => ProductDetailPage(barcode: barcode),
         ),
-        content: Text(
-          message,
-          style: TextStyles.label.copyWith(
-            color: AppColors.textDark,
-            fontSize: 16,
-          ),
+      );
+    } else if (mounted && controller.error != null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(controller.error!),
+          backgroundColor: Colors.red,
         ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(ctx).pop(),
-            child: Text(
-              "OK",
-              style: TextStyles.label.copyWith(
-                color: AppColors.primaryBlue,
-                fontSize: 16,
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
+      );
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.backgroundDark,
-      appBar: AppBarWidget(
-        title: 'Visualizador de Preços',
+      backgroundColor: Colors.black,
+      appBar: AppBar(
+        backgroundColor: Colors.grey[900],
+        title: const Text(
+          'Dashboard - Produtos',
+          style: TextStyle(color: Colors.white),
+        ),
         actions: [
           IconButton(
-            onPressed: _showManualInputDialog,
-            icon: const Icon(Icons.search),
-            tooltip: 'Buscar por código',
+            icon: const Icon(Icons.logout, color: Colors.white),
+            onPressed: () {
+              // Implementar logout
+            },
+            tooltip: 'Sair',
           ),
         ],
       ),
-      body: Stack(
-        children: [
-          Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(
-                  Icons.qr_code_scanner,
-                  size: 120,
-                  color: AppColors.backgroundLight.withOpacity(0.3),
-                ),
-                const SizedBox(height: 24),
-                Text(
-                  'Escaneie um Produto',
-                  style: TextStyles.title.copyWith(
-                    color: AppColors.backgroundLight,
-                    fontSize: 24,
-                  ),
-                ),
-                const SizedBox(height: 12),
-                Text(
-                  'Toque no botão abaixo para\nescanear o código de barras',
-                  textAlign: TextAlign.center,
-                  style: TextStyles.label.copyWith(
-                    color: AppColors.backgroundLight.withOpacity(0.7),
-                    fontSize: 16,
-                  ),
-                ),
-                const SizedBox(height: 24),
-                OutlinedButton.icon(
-                  onPressed: _showManualInputDialog,
-                  icon: const Icon(Icons.keyboard),
-                  label: const Text('Ou digite o código'),
-                  style: OutlinedButton.styleFrom(
-                    foregroundColor: AppColors.backgroundLight,
-                    side: BorderSide(
-                      color: AppColors.backgroundLight.withOpacity(0.5),
-                      width: 2,
-                    ),
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 24,
-                      vertical: 16,
-                    ),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          if (_isProcessing)
-            Container(
-              color: Colors.black.withOpacity(0.7),
-              child: const Center(
-                child: CircularProgressIndicator(
-                  color: AppColors.backgroundLight,
-                  strokeWidth: 6,
-                ),
+      body: Consumer<ProductController>(
+        builder: (context, controller, _) {
+          return SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  // Busca manual
+                  _buildSearchSection(),
+                  const SizedBox(height: 30),
+
+                  // Lista de produtos
+                  _buildProductsList(controller),
+                ],
               ),
             ),
+          );
+        },
+      ),
+    );
+  }
+
+  Widget _buildSearchSection() {
+    return Container(
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: Colors.grey[900],
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: Colors.grey[700]!, width: 1),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text(
+            'Buscar Produto',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 15),
+          TextField(
+            controller: _barcodeController,
+            style: const TextStyle(color: Colors.white),
+            keyboardType: TextInputType.number,
+            decoration: InputDecoration(
+              hintText: 'Digite o código de barras',
+              hintStyle: TextStyle(color: Colors.grey[500]),
+              filled: true,
+              fillColor: Colors.grey[850],
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8),
+                borderSide: BorderSide.none,
+              ),
+              prefixIcon: Icon(Icons.search, color: Colors.grey[400]),
+            ),
+          ),
+          const SizedBox(height: 15),
+          AppButton(
+            label: 'Buscar',
+            onPressed: _searchProduct,
+            backgroundColor: Colors.green[700]!,
+          ),
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _startScan,
-        tooltip: 'Escanear Produto',
-        backgroundColor: AppColors.backgroundLight,
-        foregroundColor: AppColors.backgroundDark,
-        child: const Icon(Icons.qr_code_scanner),
+    );
+  }
+
+  Widget _buildProductsList(ProductController controller) {
+    if (controller.isLoading) {
+      return const Center(
+        child: CircularProgressIndicator(color: Colors.green),
+      );
+    }
+
+    if (controller.products.isEmpty) {
+      return Container(
+        padding: const EdgeInsets.all(40),
+        decoration: BoxDecoration(
+          color: Colors.grey[900],
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Column(
+          children: [
+            Icon(Icons.inventory_2_outlined,
+                size: 64, color: Colors.grey[600]),
+            const SizedBox(height: 16),
+            Text(
+              'Nenhum produto encontrado',
+              style: TextStyle(color: Colors.grey[400], fontSize: 16),
+            ),
+          ],
+        ),
+      );
+    }
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'Produtos em Estoque (${controller.products.length})',
+          style: const TextStyle(
+            color: Colors.white,
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        const SizedBox(height: 15),
+        ListView.builder(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          itemCount: controller.products.length,
+          itemBuilder: (context, index) {
+            final product = controller.products[index];
+            return _buildProductCard(product);
+          },
+        ),
+      ],
+    );
+  }
+
+  Widget _buildProductCard(dynamic product) {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 12),
+      decoration: BoxDecoration(
+        color: Colors.grey[900],
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: Colors.grey[800]!, width: 1),
+      ),
+      child: ListTile(
+        contentPadding: const EdgeInsets.all(16),
+        leading: Container(
+          width: 60,
+          height: 60,
+          decoration: BoxDecoration(
+            color: Colors.grey[850],
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: product.imageUrl != null
+              ? ClipRRect(
+                  borderRadius: BorderRadius.circular(8),
+                  child: Image.network(
+                    product.imageUrl!,
+                    fit: BoxFit.cover,
+                    errorBuilder: (_, __, ___) => Icon(
+                      Icons.image_not_supported,
+                      color: Colors.grey[600],
+                    ),
+                  ),
+                )
+              : Icon(Icons.inventory_2, color: Colors.grey[600]),
+        ),
+        title: Text(
+          product.name ?? 'Produto sem nome',
+          style: const TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+            fontSize: 16,
+          ),
+          maxLines: 2,
+          overflow: TextOverflow.ellipsis,
+        ),
+        subtitle: Padding(
+          padding: const EdgeInsets.only(top: 8),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Código: ${product.barcode.value}',
+                style: TextStyle(color: Colors.grey[400], fontSize: 12),
+              ),
+              const SizedBox(height: 4),
+              if (product.stockQuantity != null)
+                Row(
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 8, vertical: 4),
+                      decoration: BoxDecoration(
+                        color: Colors.green[700],
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                      child: Text(
+                        'Estoque: ${product.stockQuantity}',
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+            ],
+          ),
+        ),
+        trailing: Icon(
+          Icons.arrow_forward_ios,
+          color: Colors.grey[600],
+          size: 20,
+        ),
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (_) => ProductDetailPage(barcode: product.barcode.value),
+            ),
+          );
+        },
       ),
     );
   }
