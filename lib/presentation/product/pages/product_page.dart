@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../domain/product/entities/product.dart';
 import '../controllers/product_controller.dart';
 import 'product_detail_page.dart';
-import '../../../domain/product/entities/product.dart';
 
 class ProductPage extends StatefulWidget {
-  const ProductPage({Key? key}) : super(key: key);
+  const ProductPage({super.key});
 
   @override
   State<ProductPage> createState() => _ProductPageState();
@@ -54,7 +54,9 @@ class _ProductPageState extends State<ProductPage> {
         final name = p.name.toLowerCase();
         final brand = (p.brand ?? '').toLowerCase();
         final barcode = p.barcode.value.toLowerCase();
-        return name.contains(lower) || brand.contains(lower) || barcode.contains(lower);
+        return name.contains(lower) ||
+            brand.contains(lower) ||
+            barcode.contains(lower);
       }).toList();
     });
   }
@@ -121,7 +123,8 @@ class _ProductPageState extends State<ProductPage> {
       child: ListView.separated(
         padding: const EdgeInsets.symmetric(vertical: 8),
         itemCount: items.length,
-        separatorBuilder: (_, __) => Divider(height: 1, color: Colors.grey[800]),
+        separatorBuilder: (_, __) =>
+            Divider(height: 1, color: Colors.grey[800]),
         itemBuilder: (context, index) {
           final p = items[index];
           return Container(
@@ -184,15 +187,15 @@ class _ProductPageState extends State<ProductPage> {
       backgroundColor: Colors.black,
       appBar: AppBar(
         backgroundColor: Colors.grey[900],
-        title: const Text(
-          'Produtos',
-          style: TextStyle(color: Colors.white),
-        ),
+        title: const Text('Produtos', style: TextStyle(color: Colors.white)),
         iconTheme: const IconThemeData(color: Colors.white),
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(56),
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 12.0,
+              vertical: 8.0,
+            ),
             child: Row(
               children: [
                 Expanded(
@@ -209,7 +212,10 @@ class _ProductPageState extends State<ProductPage> {
                       ),
                       filled: true,
                       fillColor: Colors.grey[850],
-                      contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+                      contentPadding: const EdgeInsets.symmetric(
+                        horizontal: 12,
+                        vertical: 10,
+                      ),
                       prefixIcon: Icon(Icons.search, color: Colors.grey[400]),
                       suffixIcon: _query.isNotEmpty
                           ? IconButton(
@@ -236,7 +242,7 @@ class _ProductPageState extends State<ProductPage> {
                   onPressed: () async {
                     await _refresh();
                   },
-                )
+                ),
               ],
             ),
           ),

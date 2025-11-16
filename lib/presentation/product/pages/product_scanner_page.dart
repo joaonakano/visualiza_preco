@@ -48,16 +48,11 @@ class _ProductScannerPageState extends State<ProductScannerPage> {
     if (mounted && controller.product != null) {
       Navigator.push(
         context,
-        MaterialPageRoute(
-          builder: (_) => ProductDetailPage(barcode: barcode),
-        ),
+        MaterialPageRoute(builder: (_) => ProductDetailPage(barcode: barcode)),
       );
     } else if (mounted && controller.error != null) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(controller.error!),
-          backgroundColor: Colors.red,
-        ),
+        SnackBar(content: Text(controller.error!), backgroundColor: Colors.red),
       );
     }
   }
@@ -168,8 +163,7 @@ class _ProductScannerPageState extends State<ProductScannerPage> {
         ),
         child: Column(
           children: [
-            Icon(Icons.inventory_2_outlined,
-                size: 64, color: Colors.grey[600]),
+            Icon(Icons.inventory_2_outlined, size: 64, color: Colors.grey[600]),
             const SizedBox(height: 16),
             Text(
               'Nenhum produto encontrado',
@@ -261,7 +255,9 @@ class _ProductScannerPageState extends State<ProductScannerPage> {
                   children: [
                     Container(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 8, vertical: 4),
+                        horizontal: 8,
+                        vertical: 4,
+                      ),
                       decoration: BoxDecoration(
                         color: Colors.green[700],
                         borderRadius: BorderRadius.circular(4),

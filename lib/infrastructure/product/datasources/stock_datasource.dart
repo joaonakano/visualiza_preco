@@ -21,11 +21,11 @@ class StockDatasource {
       'costPrice': 4.50,
       'stockQuantity': 200,
     },
-    '7894900700046': {
+    '3046920029759': {
       // Coca-Cola 350ml
-      'price': 3.50,
-      'costPrice': 1.80,
-      'stockQuantity': 500,
+      'price': 8.50,
+      'costPrice': 3.80,
+      'stockQuantity': 220,
     },
     '7894900530001': {
       // Coca-Cola Lata 350ml
