@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_visualizador_de_precos/presentation/product/pages/dashboard_page.dart';
-import 'package:flutter_visualizador_de_precos/presentation/product/pages/product_scanner_page.dart';
+
 import 'package:provider/provider.dart';
 
 import 'application/auth/register_use_case.dart';

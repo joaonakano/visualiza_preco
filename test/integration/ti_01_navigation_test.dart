@@ -90,8 +90,10 @@ void main() {
       );
       await tester.pumpAndSettle();
 
-      // Act - Clica no FAB
-      await tester.tap(find.byType(FloatingActionButton));
+      // Act - Clica no FAB azul (segundo botão - ir para scanner)
+      final fabFinders = find.byType(FloatingActionButton);
+      expect(fabFinders, findsNWidgets(2)); // Verifica que há 2 FABs
+      await tester.tap(fabFinders.last); // Clica no segundo FAB (azul)
       await tester.pumpAndSettle();
 
       // Assert - Verifica que navegou para scanner

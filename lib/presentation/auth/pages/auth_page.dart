@@ -3,7 +3,7 @@ import 'package:flutter_visualizador_de_precos/components/constants/app_colors.d
 import 'package:flutter_visualizador_de_precos/components/constants/app_text_styles.dart';
 import 'package:flutter_visualizador_de_precos/components/widgets/atoms/app_button.dart';
 import 'package:flutter_visualizador_de_precos/presentation/product/pages/dashboard_page.dart';
-import 'package:flutter_visualizador_de_precos/presentation/product/pages/product_scanner_page.dart';
+
 import 'package:provider/provider.dart';
 
 import '../controllers/auth_controller.dart';
